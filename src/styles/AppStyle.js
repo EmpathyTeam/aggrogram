@@ -9,5 +9,4 @@ export const RoutesArea = styled.div`
   padding-left: 30px;
   margin: auto;
   padding-right: 30px;
-  border: 1px solid red;
 `;

@@ -3,7 +3,8 @@ import Main from "./pages/Main";
 import Join from "./pages/Join";
 import MyPage from "./pages/MyPage";
 import Board from "./pages/Board";
-import * as S from './styles/AppStyle'
+import * as S from "./styles/AppStyle";
+import LayOut from "./components/LayOut";
 
 function App() {
   return (
@@ -11,10 +12,11 @@ function App() {
       <BrowserRouter>
         <S.RoutesArea>
           <Routes>
-            <Route path={"/"} element={<Main />}>
-              <Route path={"/join"} element={<Join />} />
-              <Route path={"/myPage"} element={<MyPage />} />
-              <Route path={"/board"} element={<Board />} />
+            <Route path={"/"} element={<LayOut />}>
+              <Route index element={<Main />} />
+              <Route path={"join"} element={<Join />} />
+              <Route path={"myPage"} element={<MyPage />} />
+              <Route path={"board"} element={<Board />} />
             </Route>
           </Routes>
         </S.RoutesArea>
@@ -24,4 +26,3 @@ function App() {
 }
 
 export default App;
-
