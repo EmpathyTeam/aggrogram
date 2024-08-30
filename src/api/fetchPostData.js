@@ -1,6 +1,6 @@
 // import useSupabase from "../config/supabaseConfig.js";
 
-import { supabase } from "../config/supabaseConfig";
+import { supabase } from "../configs/supabaseConfig";
 
 // const supabase = useSupabase();
 

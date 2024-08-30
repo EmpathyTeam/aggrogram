@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import LayOut from "../layout/LayOut";
+import LayOut from "../layouts/LayOut";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
 import Board from "../pages/Board";
 import * as S from "../styles/RouterStyle";
 import SignIn from "../components/SignIn";
-import { AggrogramContext } from "../context/AggrogramContext";
+import { AggrogramContext } from "../contexts/AggrogramContext";
 import SignUp from "../components/SignUp";
 
 // 로그인한 상태라면 접근 불가능한 라우터
