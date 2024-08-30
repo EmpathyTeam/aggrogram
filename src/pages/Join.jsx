@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import useSupabase from "../config/supabaseConfig";
+// import useSupabase from "../config/supabaseConfig";
+import { AggrogramContext } from "../context/AggrogramContext";
+import { supabase } from "../config/supabaseConfig";
 
 const Join = () => {
   const [email, setEmail] = useState("");
@@ -11,36 +13,34 @@ const Join = () => {
   const [nickname, setNickname] = useState("");
 
   const navigate = useNavigate();
-  const supabase = useSupabase();
+  // const supabase = useSupabase();
+
+  const { user, setUser } = useContext(AggrogramContext);
 
   // 회원 가입
-  const signUp = async (e) => {
+  const handlesignUp = async (e) => {
     e.preventDefault();
 
-    if (email !== "" && password !== "" && nickname !== "") {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            nickname: nickname,
-            avatar_url: null
-          }
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          nickname: nickname,
+          avatar_url: null,
+          description: null
         }
-      });
-      alert("회원가입이 완료되었습니다!");
-      navigate("/");
-      console.log(data);
-    } else {
-      alert("누락된 항목이 있습니다!");
-      return;
-    }
+      }
+    });
+    alert("회원가입이 완료되었습니다!");
+    navigate("/signin");
+    console.log(data);
   };
 
   return (
     <JoinContainer>
       <div>
-        <form onSubmit={signUp}>
+        <form onSubmit={handlesignUp}>
           <h1>SignUp</h1>
           <input
             placeholder="이메일을 입력해주세요."
@@ -60,9 +60,7 @@ const Join = () => {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
-          <button type="submit" onClick={signUp}>
-            가입하기
-          </button>
+          <button type="submit">가입하기</button>
         </form>
         <Link to="/signin">
           이미 계정이 있으신가요? <span>로그인</span>

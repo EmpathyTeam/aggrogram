@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useSupabase from "../config/supabaseConfig";
+// import useSupabase from "../config/supabaseConfig";
 import { JoinContainer } from "../pages/Join";
+import { supabase } from "../config/supabaseConfig";
 
-const supabase = useSupabase();
+// const supabase = useSupabase();
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
