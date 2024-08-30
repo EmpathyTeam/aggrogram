@@ -25,7 +25,7 @@ const PrivateRoute = () => {
   const { user } = useContext(AggrogramContext);
   if (!user) {
     alert("로그인이 필요한 페이지입니다. 로그인 페이지로 이동합니다.");
-    return <Navigate to="/join" />;
+    return <Navigate to="/signin" />;
   }
   return <Outlet />;
 };

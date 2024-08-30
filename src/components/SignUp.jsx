@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { supabase } from "../config/supabaseConfig";
+import { supabase } from "../configs/supabaseConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { JoinContainer } from "../pages/Join";
 
