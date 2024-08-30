@@ -14,13 +14,13 @@ export const getPosts = async () => {
 /** post 등록 */
 export const uploadPost = async (post) => {
   console.log("post :>> ", post);
-  // const { error } = await supabase.from("posts").insert({
-  //   user_id: post.id,
-  //   title: post.title,
-  //   img_url: post.imageUrl,
-  //   context: post.content,
-  //   nickname: post.nickname
-  // });
+  const { error } = await supabase.from("posts").insert({
+    user_id: post.id,
+    title: post.title,
+    img_url: post.imageUrl,
+    context: post.content,
+    nickname: post.nickname
+  });
 };
 
 /** post 수정 */

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import InputImageArea from "./InputImageArea.jsx";
+// import InputImageArea from "./InputImageArea.jsx";
 import { uploadPostImage, getImageUrl } from "../../api/fetchStorageData.js";
 import { uploadPost } from "../../api/fetchPostData.js";
+import * as S from "../../styles/BoardAddStyle.js";
 
 const FormArea = () => {
   const [uploadImage, setUploadImage] = useState(null);
@@ -42,8 +43,14 @@ const FormArea = () => {
     };
   };
 
+  // TODO 뒤로가기 연결
+  const handleBackClick = (e) => {
+    e.preventDefault();
+    console.log("뒤로가기 버튼 클릭됨");
+  };
+
   return (
-    <div>
+    <S.BoardAddContainer>
       <form
         value={title}
         onSubmit={(e) => {
@@ -51,21 +58,41 @@ const FormArea = () => {
           uploadPost(getRequestBoardObj());
         }}
       >
-        <input
+        <S.Title
+          placeholder="제목을 입력하세요"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
-        <div>{imageUrl ? <img src={imageUrl} /> : <InputImageArea setUploadImage={setUploadImage} />}</div>
-        <textarea
+        <S.ImageArea>
+          {imageUrl ? <img src={imageUrl} /> : <InputImageArea setUploadImage={setUploadImage} />}
+        </S.ImageArea>
+        <S.Content
+          placeholder="내용을 입력하세요"
           value={content}
           onChange={(e) => {
             setContent(e.target.value);
           }}
         />
-        <button type="submit">등록하기</button>
+        <div>
+          <button onClick={handleBackClick}>뒤로가기</button>
+          <button type="submit">등록하기</button>
+        </div>
       </form>
-    </div>
+    </S.BoardAddContainer>
+  );
+};
+
+const InputImageArea = ({ setUploadImage }) => {
+  return (
+    <>
+      <input
+        type="file"
+        onChange={(e) => {
+          setUploadImage(e.target.files[0]);
+        }}
+      />
+    </>
   );
 };
 
