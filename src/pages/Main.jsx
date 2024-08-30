@@ -1,26 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as S from "../styles/MainStyle";
-import { createClient } from "@supabase/supabase-js";
-
-const API_URL = import.meta.env.VITE_SUPABASE_URL;
-const API_KEY = import.meta.env.VITE_SUPABASE_KEY;
-const supabase = createClient(API_URL, API_KEY);
-
+import { useAggrogram } from "../context/AggrogramContext"; 
 
 const Main = () => {
-  const [posts, setPosts] = useState([]);
+  const { posts } = useAggrogram();
 
-  useEffect(() => {
-    getPosts();
-  }, []);
   console.log("posts =>", posts);
-
-  const getPosts = async () => {
-    const { data } = await supabase.from("posts").select();
-    setPosts(data);
-    console.log("data =>", data);
-  };  
-
 
   return (
     <S.MainContainer>
