@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import useSupabase from "../config/supabaseConfig";
-import { JoinContainer } from "../pages/Join";
 import { supabase } from "../config/supabaseConfig";
-
-// const supabase = useSupabase();
+import { JoinContainer } from "../pages/Join";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -26,8 +23,6 @@ const SignIn = () => {
       console.log("error => ", error);
     }
   };
-  console.log("email => ", email);
-  console.log("password => ", password);
 
   return (
     <JoinContainer>
@@ -38,21 +33,17 @@ const SignIn = () => {
             placeholder="이메일을 입력해주세요."
             type="text"
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             placeholder="비밀번호를 입력해주세요."
             type="password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit">로그인</button>
         </form>
-        <Link to="/join">
+        <Link to="/signup">
           아직 어그로그램 회원이 아니신가요? <span>회원가입</span>
         </Link>
       </div>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as S from "../styles/MainStyle";
-import { useAggrogram } from "../context/AggrogramContext"; 
+import { useAggrogram } from "../context/AggrogramContext";
 
 const Main = () => {
   const { posts } = useAggrogram();
 
-  console.log("posts =>", posts);
+  // console.log("posts =>", posts);
 
   return (
     <S.MainContainer>

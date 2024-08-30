@@ -30,7 +30,7 @@ export const AggrogramProvider = ({ children }) => {
 
     // 유저의 권한 변경 여부 파악
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("session?.user => ", session?.user);
+      // console.log("session?.user => ", session?.user);
       setUser(session?.user ? session?.user : null);
     });
 
