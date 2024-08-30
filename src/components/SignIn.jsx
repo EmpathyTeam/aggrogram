@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import useSupabase from "../config/supabaseConfig";
 import { JoinContainer } from "../pages/Join";
-import { supabase } from "../config/supabaseConfig";
+import { supabase } from "../configs/supabaseConfig";
 
 // const supabase = useSupabase();
 

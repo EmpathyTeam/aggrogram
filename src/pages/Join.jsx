@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 // import useSupabase from "../config/supabaseConfig";
 import { AggrogramContext } from "../contexts/AggrogramContext";
-import { supabase } from "../config/supabaseConfig";
+import { supabase } from "../configs/supabaseConfig";
 
 const Join = () => {
   const [email, setEmail] = useState("");

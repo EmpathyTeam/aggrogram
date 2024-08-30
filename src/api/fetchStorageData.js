@@ -1,5 +1,5 @@
 import { getFormatDate } from "../utils/formatDate.js";
-import { supabase } from "../config/supabaseConfig.js";
+import { supabase } from "../configs/supabaseConfig.js";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const STORAGE_NAME = "board-images";
