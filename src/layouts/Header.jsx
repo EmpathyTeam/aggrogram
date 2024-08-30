@@ -2,12 +2,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import * as S from "../styles/HeaderStyle";
-import { AggrogramContext } from "../context/AggrogramContext";
+import { AggrogramContext } from "../contexts/AggrogramContext";
 
 const Header = () => {
   const { user, signOut } = useContext(AggrogramContext);
 
-  // console.log(user.aud);
   return (
     <S.HeaderContainer>
       <S.NavLinks>

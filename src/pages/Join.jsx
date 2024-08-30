@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 // import useSupabase from "../config/supabaseConfig";
-import { AggrogramContext } from "../context/AggrogramContext";
+import { AggrogramContext } from "../contexts/AggrogramContext";
 import { supabase } from "../config/supabaseConfig";
 
 const Join = () => {

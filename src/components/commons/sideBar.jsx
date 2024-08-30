@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import * as S from "../../styles/sideBarStyle";
 import RoundButton from "./RoundButton";
 import { useNavigate } from "react-router-dom";
-import { AggrogramContext } from "../../context/AggrogramContext";
+import { AggrogramContext } from "../../contexts/AggrogramContext";
+
 const Sidebar = () => {
   const { user } = useContext(AggrogramContext);
 
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
 
   const handleCreatePostClick = () => {
     if (user === null) {
@@ -27,7 +28,9 @@ const Sidebar = () => {
       <RoundButton onClick={handleCreatePostClick} type="write">
         글 작성
       </RoundButton>
-      <RoundButton onClick={scrollToTop} type="top">TOP</RoundButton>
+      <RoundButton onClick={scrollToTop} type="top">
+        TOP
+      </RoundButton>
     </S.SidebarContainer>
   );
 };
