@@ -11,7 +11,7 @@ const RoundButton = ({ children, type, onClick }) => {
 
 export default RoundButton;
 
-export const StyledRoundButton = styled.button`
+const StyledRoundButton = styled.button`
   background-color: ${({ type }) => {
     switch (type) {
       case "write":

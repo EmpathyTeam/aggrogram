@@ -9,7 +9,6 @@ export const useAggrogram = () => {
 };
 
 export const AggrogramProvider = ({ children }) => {
-
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -20,11 +19,11 @@ export const AggrogramProvider = ({ children }) => {
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (!error) {
-      alert("로그아웃 되었습니다.");
-    } else {
+    if (error) {
       alert("로그아웃 오류입니다.");
       console.log("로그인 에러 =>", error);
+    } else {
+      alert("로그아웃 되었습니다.");
     }
   };
 
