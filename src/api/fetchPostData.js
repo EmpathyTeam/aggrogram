@@ -1,6 +1,8 @@
-import useSupabase from "../config/supabaseConfig.js";
+// import useSupabase from "../config/supabaseConfig.js";
 
-const supabase = useSupabase();
+import { supabase } from "../config/supabaseConfig";
+
+// const supabase = useSupabase();
 
 /** post 전체 조회 */
 export const getPosts = async () => {
