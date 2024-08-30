@@ -2,8 +2,11 @@ import * as S from "./styles/AppStyle";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { AggrogramProvider } from "./context/AggrogramContext.jsx";
 import Board from "./pages/Board";
 import Join from "./pages/Join";
+import LayOut from "./components/LayOut";
+import Login from "./pages/Login";
 import Main from "./pages/Main";
 import MyPage from "./pages/MyPage";
 import { createClient } from "@supabase/supabase-js";
@@ -26,17 +29,21 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <S.RoutesArea>
-          <Routes>
-            <Route path={"/"} element={<Main />}>
-              <Route path={"/join"} element={<Join />} />
-              <Route path={"/myPage"} element={<MyPage />} />
-              <Route path={"/board"} element={<Board />} />
-            </Route>
-          </Routes>
-        </S.RoutesArea>
-      </BrowserRouter>
+      <AggrogramProvider>
+        <BrowserRouter>
+          <S.RoutesArea>
+            <Routes>
+              <Route path="/" element={<LayOut />}>
+                <Route index element={<Main />} />
+                <Route path="/join" element={<Join />} />
+                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/board" element={<Board />} />
+                <Route path="/login" element={<Login />} />
+              </Route>
+            </Routes>
+          </S.RoutesArea>
+        </BrowserRouter>
+      </AggrogramProvider>
     </>
   );
 }
