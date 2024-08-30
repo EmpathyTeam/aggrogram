@@ -1,10 +1,8 @@
-import useSupabase from "../config/supabaseConfig.js";
 import { getFormatDate } from "../utils/formatDate.js";
+import { supabase } from "../config/supabaseConfig.js";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const STORAGE_NAME = "board-images";
-
-const supabase = useSupabase();
 
 /** TODO 삭제) 테스트용 이미지 조회 */
 export const getPostImage = (imageName) => {
