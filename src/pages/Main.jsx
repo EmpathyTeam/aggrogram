@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "../styles/MainStyle";
 import { useAggrogram } from "../context/AggrogramContext"; 
+import Sidebar from "../components/commons/sideBar";
 
 const Main = () => {
   const { posts } = useAggrogram();
@@ -31,6 +32,7 @@ const Main = () => {
           </S.PostCard>
         ))}
       </S.PostList>
+        <Sidebar/>
     </S.MainContainer>
   );
 };
