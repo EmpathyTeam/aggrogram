@@ -13,12 +13,12 @@ function App() {
       <BrowserRouter>
         <S.RoutesArea>
           <Routes>
-            <Route path={"/"} element={<LayOut />}>
+            <Route path="/" element={<LayOut />}>
               <Route index element={<Main />} />
-              <Route path={"join"} element={<Join />} />
-              <Route path={"myPage"} element={<MyPage />} />
-              <Route path={"board"} element={<Board />} />
-              <Route path={"/join/login"} element={<Login />} />
+              <Route path="/join" element={<Join />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/login" element={<Login />} />
             </Route>
           </Routes>
         </S.RoutesArea>

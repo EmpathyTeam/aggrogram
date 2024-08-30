@@ -64,7 +64,7 @@ const Join = () => {
             가입하기
           </button>
         </form>
-        <Link to="/join/login">
+        <Link to="/login">
           이미 계정이 있으신가요? <span>로그인</span>
         </Link>
       </div>
