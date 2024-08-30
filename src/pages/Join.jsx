@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ const Join = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [nickname, setNickname] = useState("");
+
   const navigate = useNavigate();
   const supabase = useSupabase();
 
@@ -63,7 +64,7 @@ const Join = () => {
             가입하기
           </button>
         </form>
-        <Link to="/">
+        <Link to="/join/login">
           이미 계정이 있으신가요? <span>로그인</span>
         </Link>
       </div>
@@ -73,7 +74,7 @@ const Join = () => {
 
 export default Join;
 
-const JoinContainer = styled.div`
+export const JoinContainer = styled.div`
   width: 500px;
   height: 500px;
   display: relative;

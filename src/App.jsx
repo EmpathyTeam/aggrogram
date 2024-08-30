@@ -5,6 +5,7 @@ import MyPage from "./pages/MyPage";
 import Board from "./pages/Board";
 import * as S from "./styles/AppStyle";
 import LayOut from "./components/LayOut";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path={"join"} element={<Join />} />
               <Route path={"myPage"} element={<MyPage />} />
               <Route path={"board"} element={<Board />} />
+              <Route path={"/join/login"} element={<Login />} />
             </Route>
           </Routes>
         </S.RoutesArea>
