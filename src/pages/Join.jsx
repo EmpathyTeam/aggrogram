@@ -7,7 +7,7 @@ import useSupabase from "../config/supabaseConfig";
 
 const Join = () => {
   const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
+  const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
 
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ const Join = () => {
   const signUp = async (e) => {
     e.preventDefault();
 
-    if (email !== "" && pw !== "" && nickname !== "") {
+    if (email !== "" && password !== "" && nickname !== "") {
       const { data, error } = await supabase.auth.signUp({
         email: email,
-        password: pw,
+        password: password,
         options: {
           data: {
             nickname: nickname,
@@ -51,8 +51,8 @@ const Join = () => {
           <input
             placeholder="비밀번호를 입력해주세요."
             type="password"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <input
             placeholder="닉네임을 입력해주세요."
@@ -64,7 +64,7 @@ const Join = () => {
             가입하기
           </button>
         </form>
-        <Link to="/join/login">
+        <Link to="/signin">
           이미 계정이 있으신가요? <span>로그인</span>
         </Link>
       </div>
