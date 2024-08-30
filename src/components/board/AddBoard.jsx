@@ -1,6 +1,6 @@
 import React from "react";
 import FormArea from "./FormArea";
-import { useAggrogram } from "../../context/AggrogramContext.jsx";
+import { useAggrogram } from "../../contexts/AggrogramContext.jsx";
 
 const AddBoard = () => {
   // const { posts } = useAggrogram();

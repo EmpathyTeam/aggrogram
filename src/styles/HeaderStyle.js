@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   height: 50px;
   color: white;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
@@ -20,4 +20,10 @@ export const HeaderContainer = styled.header`
   }
 `;
 
-export const NavLinks = styled.nav``;
+export const NavLinks = styled.nav`
+  width: 1400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
