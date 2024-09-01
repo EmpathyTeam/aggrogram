@@ -48,7 +48,7 @@ const SignIn = () => {
       <div>
         <form onSubmit={handleSignin}>
           <h1>Login</h1>
-          <input required placeholder="이메일을 입력해주세요." type="text" value={email} onChange={checkEmail} />
+          <input required placeholder="이메일을 입력해주세요." type="email" value={email} onChange={checkEmail} />
           <p className="message">{emailMsg}</p>
           <input
             required
