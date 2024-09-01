@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getPosts } from "../api/fetchPostData.js";
+import { getPosts } from "../api/supabasePost.js";
 import { supabase } from "../configs/supabaseConfig.js";
 
 export const AggrogramContext = createContext(null);
@@ -14,7 +14,8 @@ export const AggrogramProvider = ({ children }) => {
 
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
-    setPosts(data);
+    const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setPosts(sortedPosts);
   };
 
   const signOut = async () => {
@@ -48,5 +49,9 @@ export const AggrogramProvider = ({ children }) => {
       authListener.subscription.unsubscribe();
     };
   }, []);
-  return <AggrogramContext.Provider value={{ posts, user, setUser, signOut }}>{children}</AggrogramContext.Provider>;
+  return (
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
+      {children}
+    </AggrogramContext.Provider>
+  );
 };

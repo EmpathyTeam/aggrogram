@@ -21,7 +21,7 @@ const Sidebar = () => {
       alert("로그인한 유저만 작성이 가능합니다.");
       navigate("signin");
     } else {
-      navigate("board");
+      navigate("write");
     }
   };
   
