@@ -12,7 +12,9 @@ import SignUp from "../components/SignUp";
 // 로그인한 상태라면 접근 불가능한 라우터
 const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
+  console.log(user);
 
+  // TODO: 유저가 있는데 다시 로그인 시도 시 알럿
   if (user) {
     alert("이미 로그인되어 있습니다.");
     return <Navigate to="/" />;

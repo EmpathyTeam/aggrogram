@@ -41,7 +41,7 @@ export const JoinContainer = styled.div`
     height: 50px;
     display: flex;
     margin: auto;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     border: 0;
     border-radius: 10px;
     background-color: #ececec;
@@ -69,5 +69,12 @@ export const JoinContainer = styled.div`
   span {
     color: black;
     font-weight: 500;
+  }
+
+  p {
+    text-align: left;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 `;
