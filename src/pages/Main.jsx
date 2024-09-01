@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <MainContainer>
       <PostList isMyPage={false} />
-        <Sidebar />
+      <Sidebar />
     </MainContainer>
   );
 };

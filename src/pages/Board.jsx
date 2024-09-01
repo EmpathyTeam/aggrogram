@@ -1,9 +1,7 @@
 import * as S from "../styles/BoardStyle";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import AddBoard from "../components/board/AddBoard.jsx";
-import styled from "styled-components";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +20,11 @@ const Board = () => {
   };
   //수정버튼클릭시
   const handleEdit = () => {
-    navigate(`/update?id=${postId}`);
+    if(foundPost.user_id === user.id){
+      navigate(`/update?id=${postId}`);
+    } else{
+     alert("작성자만 수정이 가능합니다.")
+    }
   };
   //삭제버튼클릭시
   const handelDelete = async (postId) => {
@@ -47,10 +49,22 @@ const Board = () => {
         <div>게시글 찾을 수 없음</div>
       ) : (
         <>
+          <S.ContentWrapper>
+            <S.BoxContainer>
+              <div>
+                <div>
+                  <div> {foundPost.title}</div>
+                  <div> {foundPost.created_at}</div>
+
+                  <S.ImageBox>사진</S.ImageBox>
+                  <S.MainContainer>{foundPost.context}</S.MainContainer>
+                </div>
+              </div>
+            </S.BoxContainer>
+          </S.ContentWrapper>
           <div>
             <S.ButtonWrapper>
               <button onClick={handleBack}>뒤로가기</button>
-
               <button onClick={handleEdit}> 수정하기</button>
               <button onClick={() => handelDelete(postId)}>삭제하기</button>
             </S.ButtonWrapper>
