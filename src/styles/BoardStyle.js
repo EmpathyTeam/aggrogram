@@ -36,7 +36,7 @@ export const ImageBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: red;
+  background-color: white;
   width: 90%;
   margin-top: 50px;
   padding: 50px;
@@ -47,7 +47,7 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: white;
   width: 90%;
   margin-top: 50px;
   padding: 50px;

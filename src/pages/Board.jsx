@@ -17,6 +17,7 @@ const Board = () => {
   const handleBack = () => {
     navigate("/");
   };
+
   return (
     <div>
       {!foundPost ? (
