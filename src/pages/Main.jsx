@@ -2,6 +2,7 @@ import PostList from "../components/posts/PostList";
 import React from "react";
 import Sidebar from "../components/commons/sideBar";
 import styled from "styled-components";
+
 const Main = () => {
   return (
     <MainContainer>
