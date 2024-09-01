@@ -1,23 +1,40 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useAggrogram } from "../context/AggrogramContext";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
 
 const MyPage = () => {
-  const { userId } = useParams();
+  // // const { userId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { user, posts } = useAggrogram();
 
-  console.log("userId from URL params:", userId);
+  const paramsId = searchParams.get("id");
+  console.log("paramsId:", paramsId);
+
+  // console.log("userId from URL params:", paramsId);
   console.log("posts:", posts);
   console.log("user:", user);
 
   // 유저 ID에 해당하는 게시글 필터링
-  const userPosts = posts.filter((post) => post.user_id === userId);
+  const userPosts = posts.filter((post) => post.user_id === paramsId);
 
   console.log("userPosts:", userPosts);
 
   return (
     <Section>
+      <ProfileContainer>
+        <ProfileImage src={user.user_metadata.avatar_url} />
+        <ProfileInfo>
+          <Nickname>{user.user_metadata.nickname}</Nickname>
+          {user.user_metadata.description.length === 0 || !user.user_metadata.description ? (
+            <Description>자기소개를 회원정보 수정 페이지에서 추가해 보세요!</Description>
+          ) : (
+            <Description>{user.user_metadata.description}</Description>
+          )}
+          <Description>{user.user_metadata.description}</Description>
+        </ProfileInfo>
+      </ProfileContainer>
+
       <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
       <PostsContainer>
         {userPosts.length > 0 ? (
@@ -82,4 +99,29 @@ const SectionTitle = styled.h3`
   font-size: 2em;
   text-align: center;
   margin: 40px 0;
+`;
+
+const ProfileContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  display: flex;
+  align-items: center;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Nickname = styled.h2`
+  display: flex;
+  align-items: center;
+`;
+
+const Description = styled.p`
+  display: flex;
+  align-items: center;
 `;

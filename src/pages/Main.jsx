@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as S from "../styles/MainStyle";
-import { useAggrogram } from "../context/AggrogramContext"; 
+import { useAggrogram } from "../contexts/AggrogramContext"; 
+import Sidebar from "../components/commons/sideBar";
 
 const Main = () => {
   const { posts } = useAggrogram();
-
-  console.log("posts =>", posts);
 
   return (
     <S.MainContainer>
@@ -31,6 +30,7 @@ const Main = () => {
           </S.PostCard>
         ))}
       </S.PostList>
+        <Sidebar/>
     </S.MainContainer>
   );
 };

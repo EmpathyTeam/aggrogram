@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import LayOut from "../layout/LayOut";
+import LayOut from "../layouts/LayOut";
 import Main from "../pages/Main";
 import Join from "../pages/Join";
 import MyPage from "../pages/MyPage";
 import Board from "../pages/Board";
 import * as S from "../styles/RouterStyle";
 import SignIn from "../components/SignIn";
-import { AggrogramContext } from "../context/AggrogramContext";
+import { AggrogramContext } from "../contexts/AggrogramContext";
 
 const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
@@ -44,7 +44,7 @@ const Router = () => {
             </Route>
 
             <Route element={<PrivateRoute />}>
-              <Route path="/mypage/:userId" element={<MyPage />} />
+              <Route path="/mypage" element={<MyPage />} />
             </Route>
           </Route>
         </Routes>

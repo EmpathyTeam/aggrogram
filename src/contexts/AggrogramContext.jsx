@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getPosts } from "../api/fetchPostData.js";
-import { supabase } from "../config/supabaseConfig.js";
+import { supabase } from "../configs/supabaseConfig.js";
 
 export const AggrogramContext = createContext(null);
 
@@ -17,6 +17,16 @@ export const AggrogramProvider = ({ children }) => {
     setPosts(data);
   };
 
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      alert("로그아웃 오류입니다.");
+      console.log("로그인 에러 =>", error);
+    } else {
+      alert("로그아웃 되었습니다.");
+    }
+  };
+
   // 유저 정보 가져온 후 전역상태로 사용하기
   const getSession = async () => {
     const response = await supabase.auth.getSession();
@@ -30,7 +40,6 @@ export const AggrogramProvider = ({ children }) => {
 
     // 유저의 권한 변경 여부 파악
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("session?.user => ", session?.user);
       setUser(session?.user ? session?.user : null);
     });
 
@@ -39,5 +48,5 @@ export const AggrogramProvider = ({ children }) => {
       authListener.subscription.unsubscribe();
     };
   }, []);
-  return <AggrogramContext.Provider value={{ posts, user, setUser }}>{children}</AggrogramContext.Provider>;
+  return <AggrogramContext.Provider value={{ posts, user, setUser, signOut }}>{children}</AggrogramContext.Provider>;
 };

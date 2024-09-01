@@ -28,6 +28,13 @@ export const PostCard = styled.li`
   border-radius: 3px;
   padding: 5px;
 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  }
+
   .imageArea {
     width: 100%;
     height: 70%;
@@ -78,3 +85,4 @@ export const PostCard = styled.li`
     }
   }
 `;
+
