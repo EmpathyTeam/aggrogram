@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
-import { updatePost } from "../../api/supabasePost.js";
 import * as S from "../../styles/AddBoardStyle.js";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { AggrogramContext, useAggrogram } from "../../contexts/AggrogramContext.jsx";
+import React, { useContext, useEffect, useState } from "react";
+import { getImageUrl, uploadPostImage } from "../../api/supabaseStorage.js";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { updatePost } from "../../api/supabasePost.js";
 
 const UpdateBoard = () => {
   const { user, posts, setPosts } = useContext(AggrogramContext);
@@ -18,10 +20,11 @@ const UpdateBoard = () => {
 
   const navigate = useNavigate();
 
+  const searchParams = new URLSearchParams(location.search);
+  const postId = Number(searchParams.get("id"));
   // const postId = useParams().id;
 
   // 임시
-  const postId = 55;
 
   useEffect(() => {
     const post = posts.find((post) => post.id === postId);

@@ -1,14 +1,16 @@
+import * as S from "../styles/RouterStyle";
+
+import { BrowserRouter, Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import React, { useContext } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+
+import AddBoard from "../components/board/AddBoard";
+import { AggrogramContext } from "../contexts/AggrogramContext";
+import Board from "../pages/Board";
+import Join from "../pages/Join";
 import LayOut from "../layouts/LayOut";
 import Main from "../pages/Main";
-import Join from "../pages/Join";
 import MyPage from "../pages/MyPage";
-import Board from "../pages/Board";
-import * as S from "../styles/RouterStyle";
 import SignIn from "../components/SignIn";
-import { AggrogramContext } from "../contexts/AggrogramContext";
-import AddBoard from "../components/board/AddBoard";
 import UpdateBoard from "../components/board/UpdateBoard";
 
 const AuthRoute = () => {
@@ -39,7 +41,7 @@ const Router = () => {
           <Route path="/" element={<LayOut />}>
             <Route index element={<Main />} />
             <Route path="/board" element={<Board />} />
-            
+
             <Route element={<AuthRoute />}>
               <Route path="/join" element={<Join />} />
               <Route path="/signin" element={<SignIn />} />
