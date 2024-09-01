@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
@@ -7,12 +7,20 @@ import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 
 const MyPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user, posts, setUser } = useAggrogram();
+  const [isEditing, setIsEditing] = useState(false);
+  const [newNickname, setNewNickname] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newAvatarUrl, setNewAvatarUrl] = useState("");
 
   const paramsId = searchParams.get("id");
-  const [isEditing, setIsEditing] = useState(false);
-  const [newNickname, setNewNickname] = useState(user.user_metadata.nickname);
-  const [newDescription, setNewDescription] = useState(user.user_metadata.description);
-  const [newAvatarUrl, setNewAvatarUrl] = useState(user.user_metadata.avatar_url);
+
+  useEffect(() => {
+    if (user) {
+      setNewNickname(user.user_metadata.nickname);
+      setNewDescription(user.user_metadata.description);
+      setNewAvatarUrl(user.user_metadata.avatar_url);
+    }
+  }, [user]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -47,49 +55,55 @@ const MyPage = () => {
 
   return (
     <Section>
-      <ProfileContainer>
-        <ProfileImage
-          src={
-            newAvatarUrl ||
-            "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
-          }
-        />
-        {isEditing ? (
-          <>
-            <ProfileInfo>
-              <input value={newNickname} onChange={(e) => setNewNickname(e.target.value)} />
-              <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
-            </ProfileInfo>
-            <SaveButton onClick={handleSaveClick}>저장</SaveButton>
-          </>
-        ) : (
-          <>
-            <ProfileInfo>
-              <Nickname>{user.user_metadata.nickname}</Nickname>
-              <Description>
-                {user.user_metadata.description || "자기소개를 회원정보 수정 페이지에서 추가해보세요."}
-              </Description>
-            </ProfileInfo>
-            <EditButton onClick={handleEditClick}>프로필 수정</EditButton>
-          </>
-        )}
-      </ProfileContainer>
+      {!user ? (
+        <div>없음</div>
+      ) : (
+        <>
+          <ProfileContainer>
+            <ProfileImage
+              src={
+                newAvatarUrl ||
+                "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
+              }
+            />
+            {isEditing ? (
+              <>
+                <ProfileInfo>
+                  <input value={newNickname} onChange={(e) => setNewNickname(e.target.value)} />
+                  <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                </ProfileInfo>
+                <SaveButton onClick={handleSaveClick}>저장</SaveButton>
+              </>
+            ) : (
+              <>
+                <ProfileInfo>
+                  <Nickname>{user.user_metadata.nickname}</Nickname>
+                  <Description>
+                    {user.user_metadata.description || "자기소개를 회원정보 수정 페이지에서 추가해보세요."}
+                  </Description>
+                </ProfileInfo>
+                <EditButton onClick={handleEditClick}>프로필 수정</EditButton>
+              </>
+            )}
+          </ProfileContainer>
 
-      <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
-      <PostsContainer>
-        {posts.filter((post) => post.user_id === paramsId).length > 0 ? (
-          posts
-            .filter((post) => post.user_id === paramsId)
-            .map((post) => (
-              <PostCard key={post.id}>
-                <img src={post.img_url} alt={post.title} />
-                <h4>{post.title}</h4>
-              </PostCard>
-            ))
-        ) : (
-          <p>게시글이 없습니다.</p>
-        )}
-      </PostsContainer>
+          <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
+          <PostsContainer>
+            {posts.filter((post) => post.user_id === paramsId).length > 0 ? (
+              posts
+                .filter((post) => post.user_id === paramsId)
+                .map((post) => (
+                  <PostCard key={post.id}>
+                    <img src={post.img_url} alt={post.title} />
+                    <h4>{post.title}</h4>
+                  </PostCard>
+                ))
+            ) : (
+              <p>게시글이 없습니다.</p>
+            )}
+          </PostsContainer>
+        </>
+      )}
     </Section>
   );
 };
