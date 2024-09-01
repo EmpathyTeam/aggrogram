@@ -8,6 +8,8 @@ import Board from "../pages/Board";
 import * as S from "../styles/RouterStyle";
 import SignIn from "../components/SignIn";
 import { AggrogramContext } from "../contexts/AggrogramContext";
+import AddBoard from "../components/board/AddBoard";
+import UpdateBoard from "../components/board/UpdateBoard";
 
 const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
@@ -37,7 +39,7 @@ const Router = () => {
           <Route path="/" element={<LayOut />}>
             <Route index element={<Main />} />
             <Route path="/board" element={<Board />} />
-
+            
             <Route element={<AuthRoute />}>
               <Route path="/join" element={<Join />} />
               <Route path="/signin" element={<SignIn />} />
@@ -45,6 +47,8 @@ const Router = () => {
 
             <Route element={<PrivateRoute />}>
               <Route path="/mypage" element={<MyPage />} />
+              <Route path="/write" element={<AddBoard />} />
+              <Route path="/update" element={<UpdateBoard />} />
             </Route>
           </Route>
         </Routes>
