@@ -39,7 +39,7 @@ const Router = () => {
           <Route path="/" element={<LayOut />}>
             <Route index element={<Main />} />
             <Route path="/board" element={<Board />} />
-
+            
             <Route element={<AuthRoute />}>
               <Route path="/join" element={<Join />} />
               <Route path="/signin" element={<SignIn />} />
