@@ -93,7 +93,7 @@ const StyledPostCard = styled.li`
         gap: 10px;
 
         .userNickname {
-          color: red;
+          color: #3f3f3f;
         }
       }
 
