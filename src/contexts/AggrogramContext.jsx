@@ -11,10 +11,11 @@ export const useAggrogram = () => {
 export const AggrogramProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-
+  
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
-    setPosts(data);
+    const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    setPosts(sortedPosts);
   };
 
   const signOut = async () => {

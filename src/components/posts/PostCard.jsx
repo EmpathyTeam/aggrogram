@@ -1,23 +1,38 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+const PostCard = ({ post }) => {
+  const navigate = useNavigate();
 
-export const MainContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  width: 100%;
-  margin-top: 100px;
-`;
-export const PostList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 30px;
-`;
+  const goToDetail = () => {
+    navigate(`/board?id=${post.id}`);
+  };
+  
+  return (
+    <StyledPostCard onClick={goToDetail} key={post.id}>
+      <div className="imageArea">
+        <img src={post.img_url} alt="이미지" />
+      </div>
+      <div className="contentsArea">
+        <h1>{post.title}</h1>
+        <div className="profileArea">
+          <div className="userInfo">
+            <img src="" alt=" " />
+            <p className="userNickname">{post.nickname}</p>
+          </div>
+          <div className="engagementStats">
+            <p>좋아요</p>
+            <p>조회수</p>
+          </div>
+        </div>
+      </div>
+    </StyledPostCard>
+  );
+};
 
-export const PostCard = styled.li`
+export default PostCard;
+
+const StyledPostCard = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,6 +90,10 @@ export const PostCard = styled.li`
         display: flex;
         flex-direction: row;
         gap: 10px;
+
+        .userNickname {
+          color: red;
+        }
       }
 
       .engagementStats {
@@ -85,4 +104,3 @@ export const PostCard = styled.li`
     }
   }
 `;
-
