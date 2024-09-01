@@ -10,6 +10,7 @@ const Header = () => {
       <S.NavLinks>
         <Link to="/signin">로그인</Link>
         <Link to="/join">회원가입</Link>
+        <Link to="/mypage/:user.id">마이페이지</Link>
       </S.NavLinks>
     </S.HeaderContainer>
   );

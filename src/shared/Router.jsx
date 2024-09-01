@@ -44,7 +44,7 @@ const Router = () => {
             </Route>
 
             <Route element={<PrivateRoute />}>
-              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/mypage/:userId" element={<MyPage />} />
             </Route>
           </Route>
         </Routes>
