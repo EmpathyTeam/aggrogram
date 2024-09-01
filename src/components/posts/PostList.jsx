@@ -3,16 +3,18 @@ import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useAggrogram } from "../../contexts/AggrogramContext";
 
-const PostList = () => {
-  const { posts, getAsyncPosts } = useAggrogram();
-  
+const PostList = ({ isMyPage }) => {
+  const { user, posts, getAsyncPosts } = useAggrogram();
+
   useEffect(() => {
     getAsyncPosts();
   }, [getAsyncPosts]);
 
+  const filteredPosts = isMyPage ? posts.filter((post) => post.user_id === user.id) : posts;
+
   return (
     <StyledPostList>
-      {posts.length === 0 ? <div>데이터 로딩중</div> : posts.map((post) => <PostCard key={post.id} post={post} />)}
+      {filteredPosts.length === 0 ? <>로딩중</> : filteredPosts.map((post) => <PostCard key={post.id} post={post} />)}
     </StyledPostList>
   );
 };

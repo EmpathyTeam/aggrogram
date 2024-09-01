@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Main = () => {
   return (
     <MainContainer>
-      <PostList />
+      <PostList isMyPage={false} />
         <Sidebar />
     </MainContainer>
   );
