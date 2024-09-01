@@ -18,14 +18,14 @@ const Header = () => {
         {user ? (
           <div>
             <Link>{user.user_metadata.nickname}님 안녕하세요</Link>
-            {/* <Link to="/mypage">마이페이지</Link> */}
-            <button
+            <Link to={`/mypage?id=${user.id}`}>마이페이지</Link>
+            {/* <button
               onClick={() => {
                 navigate(`/mypage?id=${user.id}`);
               }}
             >
               마이 페이지
-            </button>
+            </button> */}
             <Link onClick={signOut}>로그아웃</Link>
           </div>
         ) : (

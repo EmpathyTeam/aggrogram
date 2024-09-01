@@ -1,49 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
+import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 import
 
 const MyPage = () => {
-  // // const { userId } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user, posts } = useAggrogram();
+  const { user, posts, setUser } = useAggrogram();
 
   const paramsId = searchParams.get("id");
-  console.log("paramsId:", paramsId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newNickname, setNewNickname] = useState(user.user_metadata.nickname);
+  const [newDescription, setNewDescription] = useState(user.user_metadata.description);
+  const [newAvatarUrl, setNewAvatarUrl] = useState(user.user_metadata.avatar_url);
 
-  // console.log("userId from URL params:", paramsId);
-  console.log("posts:", posts);
-  console.log("user:", user);
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
 
-  // 유저 ID에 해당하는 게시글 필터링
-  const userPosts = posts.filter((post) => post.user_id === paramsId);
+  const handleSaveClick = async () => {
+    const updates = {
+      avatar_url: newAvatarUrl,
+      nickname: newNickname,
+      description: newDescription
+    };
 
-  console.log("userPosts:", userPosts);
+    // Supabase 업데이트 호출
+    const { error } = await supabase.auth.updateUser({
+      data: updates
+    });
+
+    if (error) {
+      console.error("프로필 업데이트 오류:", error);
+    } else {
+      // 상태 업데이트
+      setUser((prevUser) => ({
+        ...prevUser,
+        user_metadata: {
+          ...prevUser.user_metadata,
+          ...updates
+        }
+      }));
+      setIsEditing(false);
+    }
+  };
 
   return (
     <Section>
       <ProfileContainer>
-        <ProfileImage src={user.user_metadata.avatar_url} />
-        <ProfileInfo>
-          <Nickname>{user.user_metadata.nickname}</Nickname>
-          {user.user_metadata.description.length === 0 || !user.user_metadata.description ? (
-            <Description>자기소개를 회원정보 수정 페이지에서 추가해 보세요!</Description>
-          ) : (
-            <Description>{user.user_metadata.description}</Description>
-          )}
-          <Description>{user.user_metadata.description}</Description>
-        </ProfileInfo>
+        <ProfileImage
+          src={
+            newAvatarUrl ||
+            "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
+          }
+        />
+        {isEditing ? (
+          <>
+            <ProfileInfo>
+              <input value={newNickname} onChange={(e) => setNewNickname(e.target.value)} />
+              <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+            </ProfileInfo>
+            <SaveButton onClick={handleSaveClick}>저장</SaveButton>
+          </>
+        ) : (
+          <>
+            <ProfileInfo>
+              <Nickname>{user.user_metadata.nickname}</Nickname>
+              <Description>
+                {user.user_metadata.description || "자기소개를 회원정보 수정 페이지에서 추가해보세요."}
+              </Description>
+            </ProfileInfo>
+            <EditButton onClick={handleEditClick}>프로필 수정</EditButton>
+          </>
+        )}
       </ProfileContainer>
 
       <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
       <PostsContainer>
-        {userPosts.length > 0 ? (
-          userPosts.map((post) => (
-            <PostCard key={post.id}>
-              <img src={post.img_url} alt={post.title} />
-              <h4>{post.title}</h4>
-            </PostCard>
-          ))
+        {posts.filter((post) => post.user_id === paramsId).length > 0 ? (
+          posts
+            .filter((post) => post.user_id === paramsId)
+            .map((post) => (
+              <PostCard key={post.id}>
+                <img src={post.img_url} alt={post.title} />
+                <h4>{post.title}</h4>
+              </PostCard>
+            ))
         ) : (
           <p>게시글이 없습니다.</p>
         )}
@@ -107,21 +149,41 @@ const ProfileContainer = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  display: flex;
-  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const ProfileInfo = styled.div`
-  display: flex;
-  align-items: center;
+  margin-left: 20px;
 `;
 
 const Nickname = styled.h2`
-  display: flex;
-  align-items: center;
+  font-size: 1.5em;
+  margin: 0;
 `;
 
 const Description = styled.p`
-  display: flex;
-  align-items: center;
+  margin: 10px 0;
+`;
+
+const EditButton = styled.button`
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+`;
+
+const SaveButton = styled.button`
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
 `;
