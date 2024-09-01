@@ -37,7 +37,7 @@ const SignIn = () => {
     e.preventDefault();
 
     // 로그인 처리
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data } = await supabase.auth.signInWithPassword({
       email: email,
       password: password
     });
