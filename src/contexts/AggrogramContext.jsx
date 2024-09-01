@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getPosts } from "../api/fetchPostData.js";
+import { getPosts } from "../api/supabasePost.js";
 import { supabase } from "../configs/supabaseConfig.js";
 
 export const AggrogramContext = createContext(null);
@@ -48,5 +48,9 @@ export const AggrogramProvider = ({ children }) => {
       authListener.subscription.unsubscribe();
     };
   }, []);
-  return <AggrogramContext.Provider value={{ posts, user, setUser, signOut }}>{children}</AggrogramContext.Provider>;
+  return (
+    <AggrogramContext.Provider value={{ posts, setPosts, user, setUser, signOut }}>
+      {children}
+    </AggrogramContext.Provider>
+  );
 };

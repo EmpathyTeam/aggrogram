@@ -1,19 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
-import { uploadPost } from "../../api/supabasePost.js";
+import { updatePost } from "../../api/supabasePost.js";
 import * as S from "../../styles/AddBoardStyle.js";
-import { AggrogramContext, useAggrogram } from "../../contexts/AggrogramContext.jsx";
 import { useNavigate, useParams } from "react-router-dom";
+import { AggrogramContext, useAggrogram } from "../../contexts/AggrogramContext.jsx";
 
-const AddBoard = () => {
-  const [previewImage, setPreviewImage] = useState(null);
+const UpdateBoard = () => {
+  const { user, posts, setPosts } = useContext(AggrogramContext);
+
+  // 미리보기 이미지
+  const [previewImage, setPreviewImage] = useState("");
+
+  // post 등록 시 데이터
   const [uploadImage, setUploadImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const { user, setPosts } = useContext(AggrogramContext);
-
   const navigate = useNavigate();
+
+  // const postId = useParams().id;
+
+  // 임시
+  const postId = 55;
+
+  useEffect(() => {
+    const post = posts.find((post) => post.id === postId);
+
+    if (post) {
+      setPreviewImage(post.img_url);
+      setTitle(post.title);
+      setContent(post.context);
+    }
+  }, [posts]); // posts가 로드 되면 실행되어야하니까 의존성에 넣어줌..
 
   const handlePreviewImage = (file) => {
     const previewUrl = URL.createObjectURL(file);
@@ -26,37 +44,42 @@ const AddBoard = () => {
     navigate(-1);
   };
 
-  // TODO 에러 처리
-  const handleUploadPost = async (e) => {
+  // 업데이트
+  const handleUpdatePost = async (e) => {
     e.preventDefault();
 
-    const { data, error: imageUploadError } = await uploadPostImage(uploadImage, user.id);
-    if (imageUploadError) throw error;
+    // 이미지 업로드
+    // TODO 에러
+    const { data, error } = await uploadPostImage(uploadImage, user.id);
+    if (error) throw error;
+
     const imageUrl = getImageUrl(data.fullPath);
 
     const postObj = {
+      id: postId,
       userId: user.id,
       title: title,
-      imageUrl: imageUrl,
+      imageUrl: uploadImage ? imageUrl : previewImage,
       content: content,
       nickname: user.user_metadata.nickname
     };
 
-    const { error: postUploadError } = await uploadPost(postObj);
+    const { data: updatedPost } = await updatePost(postObj);
 
-    setPosts((prev) => [...prev, postObj]);
+    const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
 
-    alert("등록이 완료되었습니다.");
+    setPosts(updatedList);
+
+    alert("수정이 완료되었습니다.");
     navigate("/");
   };
 
   return (
     <S.AddBoardContainer>
-      <form onSubmit={handleUploadPost}>
+      <form onSubmit={handleUpdatePost}>
         <input
           value={title}
           className="title"
-          placeholder="제목을 입력하세요"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -76,7 +99,6 @@ const AddBoard = () => {
         />
 
         <textarea
-          placeholder="내용을 입력하세요"
           value={content}
           onChange={(e) => {
             setContent(e.target.value);
@@ -84,11 +106,11 @@ const AddBoard = () => {
         />
         <div>
           <button onClick={handleBackClick}>뒤로가기</button>
-          <button type="submit">등록하기</button>
+          <button type="submit">수정하기</button>
         </div>
       </form>
     </S.AddBoardContainer>
   );
 };
 
-export default AddBoard;
+export default UpdateBoard;
