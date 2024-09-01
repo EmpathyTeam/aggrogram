@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useAggrogram } from "../../contexts/AggrogramContext";
 
 const PostList = () => {
-  const { posts } = useAggrogram();
+  const { posts, getAsyncPosts } = useAggrogram();
+  
+  useEffect(() => {
+    getAsyncPosts();
+  }, [getAsyncPosts]);
+
   return (
     <StyledPostList>
-      {posts.length === 0 ? (
-        <div>포스트가 없습니다.</div>
-      ) : (
-        posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))
-      )}
+      {posts.length === 0 ? <div>데이터 로딩중</div> : posts.map((post) => <PostCard key={post.id} post={post} />)}
     </StyledPostList>
   );
 };

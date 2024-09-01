@@ -11,7 +11,7 @@ export const useAggrogram = () => {
 export const AggrogramProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  
+
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
     const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -50,7 +50,7 @@ export const AggrogramProvider = ({ children }) => {
     };
   }, []);
   return (
-    <AggrogramContext.Provider value={{ posts, setPosts, user, setUser, signOut }}>
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
       {children}
     </AggrogramContext.Provider>
   );
