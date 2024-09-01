@@ -27,4 +27,3 @@ const Spinner = () => {
 };
 
 export default Spinner;
-오전 12:17 2024-09-02
