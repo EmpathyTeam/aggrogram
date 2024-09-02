@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
 import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 import
@@ -12,6 +12,8 @@ const MyPage = () => {
   const [newDescription, setNewDescription] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
 
+  const navigate = useNavigate();
+
   const paramsId = searchParams.get("id");
 
   useEffect(() => {
@@ -19,6 +21,8 @@ const MyPage = () => {
       setNewNickname(user.user_metadata.nickname);
       setNewDescription(user.user_metadata.description);
       setNewAvatarUrl(user.user_metadata.avatar_url);
+    } else {
+      navigate("/signin");
     }
   }, [user]);
 
@@ -56,7 +60,7 @@ const MyPage = () => {
   return (
     <Section>
       {!user ? (
-        <div>없음</div>
+        <>없음</>
       ) : (
         <>
           <ProfileContainer>

@@ -41,6 +41,7 @@ const SignIn = () => {
       email: email,
       password: password
     });
+    alert("로그인 되었습니다.")
   };
 
   return (
