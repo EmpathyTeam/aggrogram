@@ -1,14 +1,12 @@
 // src/components/Header.js
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as S from "../styles/HeaderStyle";
 import { AggrogramContext } from "../contexts/AggrogramContext";
 
 const Header = () => {
   const { user, signOut } = useContext(AggrogramContext);
-  const navigate = useNavigate();
 
-  console.log(user);
   return (
     <S.HeaderContainer>
       <S.NavLinks>
