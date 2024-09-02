@@ -4,6 +4,7 @@ import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
 import { supabase } from "../configs/supabaseConfig";
 import { getFormatDate } from "../utils/formatDate"; // Supabase 설정 파일 import
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 
 const MyPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +14,7 @@ const MyPage = () => {
   const [newDescription, setNewDescription] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
   const [newAvatarFile, setNewAvatarFile] = useState("");
-
+  console.log("유저:", user);
   const paramsId = searchParams.get("id");
 
   useEffect(() => {
@@ -36,27 +37,25 @@ const MyPage = () => {
     }
   };
 
+  const getImageUrl = (fullPath) => {
+    return `${SUPABASE_URL}/storage/v1/object/public/${fullPath}`;
+  };
+
   const handleSaveClick = async () => {
-    let uploadedAvatarUrl = "";
     const imgName = `${user.id}_${getFormatDate()}`;
-    console.log("이미지네임:", imgName);
 
-    if (newAvatarFile) {
-      const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
-        cacheControl: "3600",
-        upsert: false
-      });
+    const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
+      cacheControl: "3600",
+      upsert: false
+    });
 
-      if (uploadError) {
-        console.error("이미지 업로드 오류:", uploadError);
-        return;
-      }
-      console.log(data);
-      uploadedAvatarUrl = supabase.storage.from("avatarImg").getPublicUrl(imgName).PublicUrl;
+    if (uploadError) {
+      console.error("이미지 업로드 오류:", uploadError);
+      return;
     }
 
     const updates = {
-      avatar_url: uploadedAvatarUrl,
+      avatar_url: getImageUrl(data.fullPath),
       nickname: newNickname,
       description: newDescription
     };
