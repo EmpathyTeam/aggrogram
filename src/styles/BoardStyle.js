@@ -30,6 +30,7 @@ export const ButtonWrapper = styled.div`
   gap: 300px;
   margin-bottom: 10px;
   border-radius: 10px;
+  text-align: center;
 `;
 
 export const ImageBox = styled.div`
@@ -41,6 +42,7 @@ export const ImageBox = styled.div`
   margin-top: 50px;
   padding: 50px;
   border-radius: 20px;
+  text-align:center;
 `;
 
 export const MainContainer = styled.div`
