@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
-export const AddBoardContainer = styled.div`
-  /* border: 2px solid red; */
+export const BoardFormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
   padding: 20px;
   margin-top: 50px;
 
@@ -41,12 +39,12 @@ export const AddBoardContainer = styled.div`
       width: 500px;
       height: 200px;
       padding: 10px;
+      resize: none;
     }
 
     .previewImage {
-      /* background-color: lightgray; */
       width: 500px;
-      height: 300px;
+      height: 200px;
       border: 1px solid black;
       padding: 10px;
 
@@ -56,20 +54,27 @@ export const AddBoardContainer = styled.div`
         object-fit: cover;
       }
     }
+
+    .emptyImage {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: lightgray;
+      border: none;
+      width: 500px;
+      height: 200px;
+      padding: 10px;
+      resize: none;
+      color: gray;
+
+      span {
+        margin-bottom: 5px;
+      }
+
+      span:nth-child(2) {
+        font-size: small;
+      }
+    }
   }
 `;
-
-// export const ImageArea = styled.div`
-//   background-color: lightgray;
-//   width: 500px;
-//   height: 200px;
-//   padding: 10px;
-// `;
-
-// export const Title = styled.input`
-//   background-color: lightgray;
-//   border: none;
-//   width: 500px;
-//   height: 50px;
-//   padding: 10px;
-// `;
