@@ -42,7 +42,7 @@ const SignIn = () => {
       email: email,
       password: password
     });
-    navigate("/");
+    alert("로그인 되었습니다.");
   };
 
   return (
