@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContentWrapper = styled.div`
-  display: flex;
+  display: center;
   align-items: center;
   justify-content: center;
 
@@ -37,7 +37,7 @@ export const ImageBox = styled.div`
   align-items: center;
   justify-content: center;
   background-color: white;
-  width: 90%;
+  width: 80%;
   margin-top: 50px;
   padding: 50px;
   border-radius: 20px;

@@ -40,6 +40,7 @@ const Board = () => {
       console.error(error);
     }
   };
+
   console.log("user입니다", user);
   return (
     <div>
@@ -52,7 +53,7 @@ const Board = () => {
               <div>
                 <div>
                   <div> {foundPost.title}</div>
-                  <div> {foundPost.created_at}</div>
+                  <div> {new Date(foundPost.created_at).toISOString().split("T")[0]} </div>
 
                   <S.ImageBox>사진</S.ImageBox>
                   <S.MainContainer>{foundPost.context}</S.MainContainer>
@@ -63,9 +64,12 @@ const Board = () => {
           <div>
             <S.ButtonWrapper>
               <button onClick={handleBack}>뒤로가기</button>
-
-              <button onClick={handleEdit}> 수정하기</button>
-              <button onClick={() => handelDelete(postId)}>삭제하기</button>
+              {user && foundPost.user_id === user.id ? (
+                <div>
+                  <button onClick={handleEdit}> 수정하기</button>
+                  <button onClick={() => handelDelete(postId)}>삭제하기</button>
+                </div>
+              ) : null}
             </S.ButtonWrapper>
           </div>
         </>
