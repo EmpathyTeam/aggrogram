@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
-import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 import
+import { supabase } from "../configs/supabaseConfig";
+import { getFormatDate } from "../utils/formatDate"; // Supabase 설정 파일 import
 
 const MyPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,6 +12,7 @@ const MyPage = () => {
   const [newNickname, setNewNickname] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
+  const [newAvatarFile, setNewAvatarFile] = useState("");
 
   const paramsId = searchParams.get("id");
 
@@ -26,9 +28,35 @@ const MyPage = () => {
     setIsEditing(true);
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setNewAvatarFile(file);
+      setNewAvatarUrl(URL.createObjectURL(file));
+    }
+  };
+
   const handleSaveClick = async () => {
+    let uploadedAvatarUrl = "";
+    const imgName = `${user.id}_${getFormatDate()}`;
+    console.log("이미지네임:", imgName);
+
+    if (newAvatarFile) {
+      const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
+        cacheControl: "3600",
+        upsert: false
+      });
+
+      if (uploadError) {
+        console.error("이미지 업로드 오류:", uploadError);
+        return;
+      }
+      console.log(data);
+      uploadedAvatarUrl = supabase.storage.from("avatarImg").getPublicUrl(imgName).PublicUrl;
+    }
+
     const updates = {
-      avatar_url: newAvatarUrl,
+      avatar_url: uploadedAvatarUrl,
       nickname: newNickname,
       description: newDescription
     };
@@ -71,6 +99,7 @@ const MyPage = () => {
                 <ProfileInfo>
                   <input value={newNickname} onChange={(e) => setNewNickname(e.target.value)} />
                   <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                  <input type="file" onChange={handleFileChange} />
                 </ProfileInfo>
                 <SaveButton onClick={handleSaveClick}>저장</SaveButton>
               </>
