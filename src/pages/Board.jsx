@@ -1,4 +1,4 @@
-import * as S from "../styles/BoardStyle.js"
+import * as S from "../styles/BoardStyle.js";
 import React from "react";
 
 import { supabase } from "../configs/supabaseConfig.js";
@@ -52,8 +52,8 @@ const Board = () => {
         <div className="postArea">
           <div className="postInfoArea">
             <div className="title">
-              {foundPost.title}
-              {foundPost.created_at}
+              <div>{foundPost.title}</div>
+              <div>{new Date(foundPost.created_at).toISOString().split("T")[0]}</div>
             </div>
             <div className="image">
               <img src={foundPost.img_url} alt="" />
@@ -61,9 +61,15 @@ const Board = () => {
             <div className="context">{foundPost.context}</div>
           </div>
           <div>
-            <button onClick={handleBack}>뒤로가기</button>
-            <button onClick={handleEdit}> 수정하기</button>
-            <button onClick={() => handelDelete(postId)}>삭제하기</button>
+            <div>
+              <button onClick={handleBack}>뒤로가기</button>
+              {user && foundPost.user_id === user.id ? (
+                <>
+                  <button onClick={handleEdit}> 수정하기</button>
+                  <button onClick={() => handelDelete(postId)}>삭제하기</button>
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
       )}
