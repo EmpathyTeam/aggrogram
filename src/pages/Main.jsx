@@ -1,12 +1,13 @@
+import PostList from "../components/posts/PostList";
 import React from "react";
 import Sidebar from "../components/commons/sideBar";
-import PostList from "../components/posts/PostList";
 import styled from "styled-components";
+
 const Main = () => {
   return (
     <MainContainer>
-      <PostList />
-        <Sidebar />
+      <PostList isMyPage={false} />
+      <Sidebar />
     </MainContainer>
   );
 };

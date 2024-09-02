@@ -2,17 +2,20 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useAggrogram } from "../../contexts/AggrogramContext";
+import Spinner from "../commons/Spinner";
 
-const PostList = () => {
-  const { posts, getAsyncPosts } = useAggrogram();
-  
+const PostList = ({ isMyPage }) => {
+  const { user, posts, getAsyncPosts } = useAggrogram();
+
   useEffect(() => {
     getAsyncPosts();
   }, [getAsyncPosts]);
 
+  const filteredPosts = isMyPage ? posts.filter((post) => post.user_id === user.id) : posts;
+
   return (
     <StyledPostList>
-      {posts.length === 0 ? <div>데이터 로딩중</div> : posts.map((post) => <PostCard key={post.id} post={post} />)}
+      {filteredPosts.length === 0 ? <Spinner /> : filteredPosts.map((post) => <PostCard key={post.id} post={post} />)}
     </StyledPostList>
   );
 };
