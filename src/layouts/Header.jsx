@@ -8,7 +8,6 @@ const Header = () => {
   const { user, signOut } = useContext(AggrogramContext);
   const navigate = useNavigate();
 
-  console.log(user);
   return (
     <S.HeaderContainer>
       <S.NavLinks>

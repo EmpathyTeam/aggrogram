@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { JoinContainer } from "../pages/Join";
-import { supabase } from "../configs/supabaseConfig";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { JoinContainer } from "../../pages/Join";
+import { supabase } from "../../configs/supabaseConfig";
 import styled from "styled-components";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // 이메일 & 비밀번호 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -41,6 +42,7 @@ const SignIn = () => {
       email: email,
       password: password
     });
+    navigate("/");
   };
 
   return (

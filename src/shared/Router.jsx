@@ -9,8 +9,8 @@ import Board from "../pages/Board";
 import LayOut from "../layouts/LayOut";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
+import SignIn from "../components/Join/SignIn";
+import SignUp from "../components/Join/SignUp";
 import UpdateBoard from "../components/board/UpdateBoard";
 
 // 로그인한 상태라면 접근 불가능한 라우터
@@ -18,7 +18,6 @@ const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
   console.log(user);
 
-  // TODO: 유저가 있는데 다시 로그인 시도 시 알럿
   if (user) {
     alert("이미 로그인되어 있습니다.");
     return <Navigate to="/" />;
@@ -44,6 +43,7 @@ const Router = () => {
           <Route path="/" element={<LayOut />}>
             <Route index element={<Main />} />
             <Route path="/board" element={<Board />} />
+            <Route path="/mypage" element={<MyPage />} />
 
             <Route element={<AuthRoute />}>
               <Route path="/signup" element={<SignUp />} />
@@ -51,7 +51,6 @@ const Router = () => {
             </Route>
 
             <Route element={<PrivateRoute />}>
-              <Route path="/mypage" element={<MyPage />} />
               <Route path="/write" element={<AddBoard />} />
               <Route path="/update" element={<UpdateBoard />} />
             </Route>

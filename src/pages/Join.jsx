@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
+import SignUp from "../components/Join/SignUp";
+import SignIn from "../components/Join/SignIn";
 
 const Join = () => {
   return (
