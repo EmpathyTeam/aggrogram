@@ -1,35 +1,46 @@
+// React 라이브러리
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// 스타일
+import * as S from "../../styles/BoardFormStyle.js";
+
+// 상태관리 컨텍스트
+import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
+
+// supabase
 import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
 import { uploadPost } from "../../api/supabasePost.js";
-import * as S from "../../styles/AddBoardStyle.js";
-import { AggrogramContext, useAggrogram } from "../../contexts/AggrogramContext.jsx";
-import { useNavigate, useParams } from "react-router-dom";
 
 const AddBoard = () => {
-  const [previewImage, setPreviewImage] = useState(null);
+  const { user, setPosts } = useContext(AggrogramContext);
+  const navigate = useNavigate();
+
+  // 미리보기 이미지
+  const [previewImage, setPreviewImage] = useState("");
+
+  // post 정보
   const [uploadImage, setUploadImage] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const { user, setPosts } = useContext(AggrogramContext);
-
-  const navigate = useNavigate();
-
+  // 미리보기 임시 URL 생성
   const handlePreviewImage = (file) => {
     const previewUrl = URL.createObjectURL(file);
     setPreviewImage(previewUrl);
     setUploadImage(file);
   };
 
+  // 뒤로가기
   const handleBackClick = (e) => {
     e.preventDefault();
     navigate(-1);
   };
 
-  // TODO 에러 처리
   const handleUploadPost = async (e) => {
     e.preventDefault();
 
+    // 이미지 업로드
     const { data, error: imageUploadError } = await uploadPostImage(uploadImage, user.id);
     if (imageUploadError) throw error;
     const imageUrl = getImageUrl(data.fullPath);
@@ -42,16 +53,18 @@ const AddBoard = () => {
       nickname: user.user_metadata.nickname
     };
 
+    // post 업로드
     const { error: postUploadError } = await uploadPost(postObj);
+    if (postUploadError) throw error;
 
-    
     setPosts((prev) => [...prev, postObj]);
+
     alert("등록이 완료되었습니다.");
     navigate("/");
   };
 
   return (
-    <S.AddBoardContainer>
+    <S.BoardFormContainer>
       <form onSubmit={handleUploadPost}>
         <input
           value={title}
@@ -66,7 +79,12 @@ const AddBoard = () => {
           <div className="previewImage">
             <img src={previewImage} alt="미리보기 이미지" />
           </div>
-        ) : null}
+        ) : (
+          <div className="emptyImage">
+            <span>사진을 첨부해주세요. </span>
+            <span>사진은 1장 첨부 가능합니다.</span>
+          </div>
+        )}
 
         <input
           type="file"
@@ -87,7 +105,7 @@ const AddBoard = () => {
           <button type="submit">등록하기</button>
         </div>
       </form>
-    </S.AddBoardContainer>
+    </S.BoardFormContainer>
   );
 };
 
