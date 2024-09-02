@@ -14,7 +14,7 @@ const MyPage = () => {
   const [newDescription, setNewDescription] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
   const [newAvatarFile, setNewAvatarFile] = useState("");
-  console.log("유저:", user);
+
   const paramsId = searchParams.get("id");
 
   useEffect(() => {
@@ -42,20 +42,24 @@ const MyPage = () => {
   };
 
   const handleSaveClick = async () => {
-    const imgName = `${user.id}_${getFormatDate()}`;
+    let imgUrl = newAvatarUrl;
 
-    const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
-      cacheControl: "3600",
-      upsert: false
-    });
+    if (newAvatarFile) {
+      const imgName = `${user.id}_${getFormatDate()}`;
 
-    if (uploadError) {
-      console.error("이미지 업로드 오류:", uploadError);
-      return;
+      const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
+        cacheControl: "3600",
+        upsert: false
+      });
+
+      if (uploadError) {
+        console.error("이미지 업로드 오류:", uploadError);
+        return;
+      }
+      imgUrl = getImageUrl(data.fullPath);
     }
-
     const updates = {
-      avatar_url: getImageUrl(data.fullPath),
+      avatar_url: imgUrl,
       nickname: newNickname,
       description: newDescription
     };
