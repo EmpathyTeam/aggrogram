@@ -68,17 +68,32 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 
 #### 1-1. 조회
 
+![image](https://github.com/user-attachments/assets/455eb1e6-6db1-4624-b465-34b8f1c310e4)
+
 #### 1-2. 등록
+
+![image](https://github.com/user-attachments/assets/c52b44a7-5459-44bb-a8d9-84656b4fc91b)
+![image](https://github.com/user-attachments/assets/1b827e38-e152-4213-aa17-3fe4869425fc)
 
 #### 1-3. 수정
 
+![image](https://github.com/user-attachments/assets/15633b41-7e54-4ed2-a911-fd2703bac3bc)
+![image](https://github.com/user-attachments/assets/3b0b2e48-e358-4ed0-b0b9-09564d266828)
+
 #### 1-4. 삭제
+
+![image](https://github.com/user-attachments/assets/bd3998a7-2fe0-4c0b-aa2c-15e8c8b6ba3e)
 
 ### 2. 마이페이지
 
 #### 2-1. 정보 조회
 
+![image](https://github.com/user-attachments/assets/fddb765e-6901-4e19-ab02-d13915dc20b4)
+
 #### 2-2. 수정
+
+![image](https://github.com/user-attachments/assets/fd3eee17-239b-41a1-83e9-2a426acf69b3)
+![image](https://github.com/user-attachments/assets/3ce0cc11-48ab-4490-957c-03009b8ee784)
 
 ## 🚨 트러블 슈팅
 
