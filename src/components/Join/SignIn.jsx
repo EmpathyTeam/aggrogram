@@ -8,11 +8,9 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  // const [isValid, setIsValid] = useState(false);
 
   // 이메일 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  // const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
 
   // 유효성 검사
   const [isEmail, setIsEmail] = useState(false);

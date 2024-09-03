@@ -41,11 +41,9 @@ export const JoinContainer = styled.div`
     height: 50px;
     display: flex;
     margin: auto;
-    /* margin-bottom: 20px; */
     border: 0;
     border-radius: 30px;
     background-color: #f5f5f5;
-    /* border-bottom: 1px solid #fc913a; */
     padding-left: 20px;
   }
 
