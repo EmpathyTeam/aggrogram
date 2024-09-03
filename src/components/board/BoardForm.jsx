@@ -1,15 +1,14 @@
-// React 라이브러리
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
-// 상태관리 컨텍스트
-import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
-
 // 스타일
 import * as S from "../../styles/BoardFormStyle.js";
 
+// React 라이브러리
+import React, { useContext, useEffect, useState } from "react";
 // supabase
-import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
+import { getImageUrl, uploadPostImage } from "../../api/supabaseStorage.js";
+
+// 상태관리 컨텍스트
+import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const navigate = useNavigate();
