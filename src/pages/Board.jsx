@@ -5,9 +5,6 @@ import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
 import BoardButton from "../components/board/BoardButton";
-// sweetalert2 라이브러리
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
 
 const Board = () => {
   const navigate = useNavigate();
@@ -41,14 +38,9 @@ const Board = () => {
 
     if (foundPost.user_id === user.id && data) {
       const filteredList = posts.filter((post) => post.id !== postId);
-      Swal.fire({
-        title: "삭제가 완료되었습니다.",
-        confirmButtonColor: "#fc913a",
-        confirmButtonText: "확인"
-      }).then(() => {
-        setPosts(filteredList);
-        navigate("/");
-      });
+      alert("삭제가 완료되었습니다.");
+      setPosts(filteredList);
+      navigate("/");
     } else {
       alert("작성자가 다릅니다");
       console.error(error);
