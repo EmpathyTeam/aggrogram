@@ -4,9 +4,6 @@ import { JoinContainer } from "../../pages/Join";
 import { supabase } from "../../configs/supabaseConfig";
 import styled from "styled-components";
 import { AggrogramContext } from "../../contexts/AggrogramContext";
-// sweetalert2 라이브러리
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -48,11 +45,7 @@ const SignIn = () => {
       password: password
     });
 
-    Swal.fire({
-      title: `안녕하세요!\n 메인 페이지로 바로 이동합니다.🚗💨`,
-      confirmButtonColor: "#fc913a",
-      confirmButtonText: "확인"
-    });
+    alert(`안녕하세요! 메인 페이지로 바로 이동합니다.🚗💨`);
   };
   return (
     <JoinContainer>

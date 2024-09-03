@@ -8,10 +8,6 @@ import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
 // supabase
 import { uploadPost } from "../../api/supabasePost.js";
 
-// sweetalert2 라이브러리
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
-
 import BoardForm from "./BoardForm.jsx";
 
 const AddBoard = () => {
@@ -25,13 +21,8 @@ const AddBoard = () => {
 
     setPosts((prev) => [...prev, postObj]);
 
-    Swal.fire({
-      title: "등록이 완료되었습니다.",
-      confirmButtonColor: "#fc913a",
-      confirmButtonText: "확인"
-    }).then(() => {
-      navigate("/");
-    });
+    alert("등록이 완료되었습니다.");
+    navigate("/");
   };
 
   return <BoardForm onSubmit={handleUploadPost} isEditMode={false} postId={null} />;
