@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
-import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 import
+import { supabase } from "../configs/supabaseConfig";
+import { getFormatDate } from "../utils/formatDate"; // Supabase 설정 파일 import
 import PostList from "../components/posts/PostList";
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+
 const MyPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { user, posts, setUser } = useAggrogram();
+  const { user, setUser } = useAggrogram();
   const [isEditing, setIsEditing] = useState(false);
   const [newNickname, setNewNickname] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
-
-  const navigate = useNavigate();
-
-  const paramsId = searchParams.get("id");
+  const [newAvatarFile, setNewAvatarFile] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -31,9 +29,37 @@ const MyPage = () => {
     setIsEditing(true);
   };
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setNewAvatarFile(file);
+      setNewAvatarUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const getImageUrl = (fullPath) => {
+    return `${SUPABASE_URL}/storage/v1/object/public/${fullPath}`;
+  };
+
   const handleSaveClick = async () => {
+    let imgUrl = newAvatarUrl;
+
+    if (newAvatarFile) {
+      const imgName = `${user.id}_${getFormatDate()}`;
+
+      const { data, error: uploadError } = await supabase.storage.from("avatarImg").upload(imgName, newAvatarFile, {
+        cacheControl: "3600",
+        upsert: false
+      });
+
+      if (uploadError) {
+        console.error("이미지 업로드 오류:", uploadError);
+        return;
+      }
+      imgUrl = getImageUrl(data.fullPath);
+    }
     const updates = {
-      avatar_url: newAvatarUrl,
+      avatar_url: imgUrl,
       nickname: newNickname,
       description: newDescription
     };
@@ -61,7 +87,7 @@ const MyPage = () => {
   return (
     <Section>
       {!user ? (
-        <>없음</>
+        <div>정보를 불러 올 수 없음</div>
       ) : (
         <>
           <ProfileContainer>
@@ -74,8 +100,16 @@ const MyPage = () => {
             {isEditing ? (
               <>
                 <ProfileInfo>
-                  <input value={newNickname} onChange={(e) => setNewNickname(e.target.value)} />
+                  <input
+                    className="nickname-input"
+                    value={newNickname}
+                    onChange={(e) => setNewNickname(e.target.value)}
+                  />
                   <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                  <label htmlFor="file-upload" className="file-label">
+                    이미지 파일첨부
+                  </label>
+                  <input id="file-upload" type="file" onChange={handleFileChange} />
                 </ProfileInfo>
                 <SaveButton onClick={handleSaveClick}>저장</SaveButton>
               </>
@@ -93,20 +127,6 @@ const MyPage = () => {
           </ProfileContainer>
 
           <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
-          {/* <PostsContainer>
-            {posts.filter((post) => post.user_id === paramsId).length > 0 ? (
-              posts
-                .filter((post) => post.user_id === paramsId)
-                .map((post) => (
-                  <PostCard key={post.id}>
-                    <img src={post.img_url} alt={post.title} />
-                    <h4>{post.title}</h4>
-                  </PostCard>
-                ))
-            ) : (
-              <p>게시글이 없습니다.</p>
-            )}
-          </PostsContainer> */}
           <PostList isMyPage={true} />
         </>
       )}
@@ -116,45 +136,12 @@ const MyPage = () => {
 
 export default MyPage;
 
-const PostsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  box-sizing: border-box;
-`;
-
-const PostCard = styled.div`
-  flex: 1 1 250px;
-  background-color: #fff;
-  max-width: 250px;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  box-sizing: border-box;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-
-  h4 {
-    font-size: 1em;
-    margin: 10px;
-    text-align: center;
-  }
-`;
-
 const Section = styled.section`
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 1340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SectionTitle = styled.h3`
@@ -165,45 +152,99 @@ const SectionTitle = styled.h3`
 
 const ProfileContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px;
 `;
 
 const ProfileImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  margin-bottom: 20px;
   object-fit: cover;
 `;
 
 const ProfileInfo = styled.div`
-  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  input[type="text"],
+  textarea {
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+  }
+
+  .nickname-input {
+    text-align: center;
+    padding: 5px;
+  }
+
+  textarea {
+    resize: none;
+    height: 80px;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fc913a;
+    background-color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    text-align: center;
+    border: 1px solid #fc913a;
+    font-weight: 700;
+  }
 `;
 
 const Nickname = styled.h2`
-  font-size: 1.5em;
-  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
 `;
 
 const Description = styled.p`
-  margin: 10px 0;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
 `;
 
 const EditButton = styled.button`
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #fc913a;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-left: auto;
 `;
 
-const SaveButton = styled.button`
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: auto;
+const SaveButton = styled(EditButton)`
+  background-color: #fc913a;
+  &:hover {
+    background-color: #fc913a;
+  }
 `;

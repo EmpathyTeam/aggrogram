@@ -8,18 +8,16 @@ export const getPosts = async () => {
 /** post 등록 */
 export const uploadPost = async (post) => {
   return await supabase.from("posts").insert({
-    user_id: post.id,
+    user_id: post.userId,
+    nickname: post.nickname,
     title: post.title,
     img_url: post.imageUrl,
-    context: post.content,
-    nickname: post.nickname
+    context: post.content
   });
 };
 
 /** post 수정 */
 export const updatePost = async (post) => {
-  console.log("post :>> ", post);
-
   return await supabase
     .from("posts")
     .update({
