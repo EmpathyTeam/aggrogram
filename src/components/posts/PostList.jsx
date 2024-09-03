@@ -6,10 +6,12 @@ import Spinner from "../commons/Spinner";
 import Sidebar from "../commons/sideBar";
 import * as S from "../../styles/BoardStyle";
 import RadiusOrangeButton from "../commons/RadiusOrangeButton";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../configs/supabaseConfig";
 
 const PostList = ({ isMyPage }) => {
   // Context
-  const { getAllPosts, user, posts, getSixPosts, loading } = useAggrogram();
+  const { getAllPosts, user, posts, setPosts, getSixPosts, loading } = useAggrogram();
 
   // 상태
   const [postLoadingMore, setPostLoadingMore] = useState(true); // 데이터 추가할지에 대한 상태
@@ -17,7 +19,7 @@ const PostList = ({ isMyPage }) => {
   const [offset, setOffset] = useState(0); // 어디서부터 가져올지
   const [isView, setIsView] = useState(true); // 상태에 따라서 뷰 방식 바뀜
 
-  //
+  const navigate = useNavigate();
   const limitLength = 6;
 
   const filteredPosts = isMyPage ? displayedPosts.filter((post) => post.user_id === user.id) : displayedPosts;
@@ -103,6 +105,31 @@ const PostList = ({ isMyPage }) => {
     };
   }, [postLoadingMore]);
 
+  //수정버튼클릭시
+  const handleEdit = (userId, postId) => {
+    console.log(postId);
+    console.log(userId);
+    if (userId === user.id) {
+      navigate(`/update?id=${postId}`);
+    } else {
+      alert("작성자만 수정이 가능합니다.");
+    }
+  };
+
+  //삭제버튼클릭시
+  const handelDelete = async (userId, postId) => {
+    const { data, error } = await supabase.from("posts").delete().eq("id", postId).select();
+
+    if (userId === user.id && data) {
+      const filteredList = posts.filter((post) => post.id !== postId);
+      alert("삭제가 완료되었습니다.");
+      setPosts(filteredList);
+      window.location.reload();
+    } else {
+      alert("작성자가 다릅니다");
+      console.error(error);
+    }
+  };
   return (
     <>
       <ViewButtonContainer isView={isView}>
@@ -156,11 +183,15 @@ const PostList = ({ isMyPage }) => {
 
                     <div>
                       <div>
-                        <RadiusOrangeButton>뒤로가기</RadiusOrangeButton>
                         {user && post.user_id === user.id ? (
                           <>
-                            <RadiusOrangeButton> 수정하기</RadiusOrangeButton>
-                            <RadiusOrangeButton>삭제하기</RadiusOrangeButton>
+                            <RadiusOrangeButton onClick={() => handleEdit(post.user_id, post.id)}>
+                              {" "}
+                              수정하기
+                            </RadiusOrangeButton>
+                            <RadiusOrangeButton onClick={() => handelDelete(post.user_id, post.id)}>
+                              삭제하기
+                            </RadiusOrangeButton>
                           </>
                         ) : null}
                       </div>
@@ -248,8 +279,8 @@ const ViewButtonContainer = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-content: flex-end;
-  
-  span{
+
+  span {
     text-align: center;
     color: #999999;
     margin-bottom: 10px;
@@ -277,7 +308,7 @@ const ViewButtonContainer = styled.div`
       transition: transform 0.3s ease-in-out;
       animation: ${({ isView }) =>
         isView
-          ? css`  
+          ? css`
               ${moveToRight} 0.5s forwards
             `
           : css`
