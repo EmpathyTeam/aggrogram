@@ -21,10 +21,10 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
  ┣ 📂components  
  ┃ ┣ 📂board  
  ┃ ┃ ┣ 📜AddBoard.jsx  
- ┃ ┃ ┣ 📜BoardButton.jsx  
  ┃ ┃ ┣ 📜BoardForm.jsx  
  ┃ ┃ ┗ 📜UpdateBoard.jsx  
  ┃ ┣ 📂commons  
+ ┃ ┃ ┣ 📜RadiusOrangeButton.jsx  
  ┃ ┃ ┣ 📜RoundButton.jsx  
  ┃ ┃ ┣ 📜sideBar.jsx  
  ┃ ┃ ┗ 📜Spinner.jsx  
@@ -49,7 +49,6 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
  ┣ 📂shared  
  ┃ ┗ 📜Router.jsx  
  ┣ 📂styles  
- ┃ ┣ 📜BoardButtonStyle.js  
  ┃ ┣ 📜BoardFormStyle.js  
  ┃ ┣ 📜BoardStyle.js  
  ┃ ┣ 📜HeaderStyle.js  
