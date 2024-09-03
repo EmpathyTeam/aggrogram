@@ -55,7 +55,9 @@ export const BoardContainer = styled.div`
     height: 200px;
     padding: 10px;
     white-space:pre-wrap;
-    
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-x: hidden;
   }
 
   button {
