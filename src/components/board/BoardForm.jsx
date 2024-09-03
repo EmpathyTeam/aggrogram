@@ -1,5 +1,5 @@
 // React 라이브러리
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 // 상태관리 컨텍스트
@@ -23,6 +23,8 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const titleRef = useRef("");
+
   useEffect(() => {
     const post = posts.find((post) => post.id === postId);
     if (post) {
@@ -31,6 +33,10 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
       setContent(post.context);
     }
   }, [posts]);
+
+  useEffect(() => {
+    titleRef.current.focus();
+  }, []);
 
   // 미리보기 임시 URL 생성
   const handlePreviewImage = (file) => {
@@ -69,9 +75,10 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
     <S.BoardFormContainer>
       <form onSubmit={handleSubmit}>
         <input
+          ref={titleRef}
           value={title}
           className="title"
-          placeholder="제목을 입력하세요"
+          placeholder="제목을 입력하세요."
           onChange={(e) => setTitle(e.target.value)}
         />
 
@@ -86,9 +93,12 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
           </div>
         )}
 
-        <input type="file" onChange={(e) => handlePreviewImage(e.target.files[0])} />
+        <label htmlFor="file">
+          <div className="uploadBtn">이미지 파일첨부</div>
+        </label>
+        <input type="file" id="file" onChange={(e) => handlePreviewImage(e.target.files[0])} />
 
-        <textarea placeholder="내용을 입력하세요" value={content} onChange={(e) => setContent(e.target.value)} />
+        <textarea placeholder="내용을 입력하세요." value={content} onChange={(e) => setContent(e.target.value)} />
         <div>
           <button type="button" onClick={() => navigate(-1)}>
             뒤로가기
