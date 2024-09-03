@@ -17,7 +17,7 @@ import { AggrogramProvider } from "../contexts/AggrogramContext";
 // 로그인한 상태라면 접근 불가능한 라우터
 const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
-  
+
   if (user) {
     return <Navigate to="/" />;
   }
