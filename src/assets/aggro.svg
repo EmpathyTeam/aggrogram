@@ -1,24 +1,4 @@
-// src/components/Header.js
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import * as S from "../styles/HeaderStyle";
-import { AggrogramContext } from "../contexts/AggrogramContext";
-import BoardButton from "../components/commons/RadiusOrangeButton";
-
-const Header = () => {
-  const { user, signOut } = useContext(AggrogramContext);
-  const navigate = useNavigate();
-  return (
-    <S.HeaderContainer>
-      <S.NavLinks>
-        <div
-          className="titleLogo"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <div>
-            <svg width="187" height="72" viewBox="0 0 187 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <svg width="187" height="72" viewBox="0 0 187 72" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M117.861 22.777C117.314 23.7038 115.133 27.9345 117.673 27.7916C119.608 27.6827 124.166 27.7626 124.467 25.3469C124.653 23.8578 124.657 21.8353 123.34 20.888C121.562 19.6099 119.499 21.7689 118.141 22.7505"
                 stroke="white"
@@ -161,40 +141,3 @@ const Header = () => {
               <rect x="37.5254" y="45.2319" width="3.75258" height="0.938144" rx="0.469072" fill="white" />
               <rect x="56.2891" y="45.2319" width="3.75258" height="0.938144" rx="0.469072" fill="white" />
             </svg>
-          </div>
-        </div>
-        {user ? (
-          <div className="loginArea">
-            <Link to={`/mypage?id=${user.id}`} className="welcomeMessage">
-              <div>
-                <img src={user.user_metadata.avatar_url} alt="" />
-              </div>
-              <span>{user.user_metadata.nickname} 님</span>
-            </Link>
-            {/* <button
-              onClick={() => {
-                navigate(`/mypage?id=${user.id}`);
-              }}
-            >
-              마이 페이지
-            </button> */}
-            <BoardButton  onClick={signOut}>
-              LogOut
-            </BoardButton>
-          </div>
-        ) : (
-          <div className="logoutArea">
-            <BoardButton onClick={() => navigate("/signin")}>
-              Login
-            </BoardButton>
-            <BoardButton onClick={() => navigate("/signup")}>
-              Sign Up
-            </BoardButton>
-          </div>
-        )}
-      </S.NavLinks>
-    </S.HeaderContainer>
-  );
-};
-
-export default Header;
