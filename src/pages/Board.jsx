@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
-import BoardButton from "../components/board/BoardButton";
+import BoardButton from "../components/commons/RadiusOrangeButton.jsx";
 
 const Board = () => {
   const navigate = useNavigate();

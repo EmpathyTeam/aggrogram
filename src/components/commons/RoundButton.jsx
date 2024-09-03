@@ -15,7 +15,7 @@ const StyledRoundButton = styled.button`
   background-color: ${({ type }) => {
     switch (type) {
       case "write":
-        return "#fc913a";
+        return "#ff7300";
       case "top":
         return "#777";
     }
@@ -32,10 +32,13 @@ const StyledRoundButton = styled.button`
     background-color: ${({ type }) => {
       switch (type) {
         case "write":
-          return "#ff7f2a";
+          return "#fc913a";
         case "top":
           return "#555";
       }
     }};
+  }
+  &:active {
+    border: 1px solid black;
   }
 `;

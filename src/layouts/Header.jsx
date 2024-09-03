@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "../styles/HeaderStyle";
 import { AggrogramContext } from "../contexts/AggrogramContext";
+import BoardButton from "../components/commons/RadiusOrangeButton";
 
 const Header = () => {
   const { user, signOut } = useContext(AggrogramContext);
@@ -28,18 +29,18 @@ const Header = () => {
             >
               마이 페이지
             </button> */}
-            <button className="headerButton" onClick={signOut}>
+            <BoardButton  onClick={signOut}>
               로그아웃
-            </button>
+            </BoardButton>
           </div>
         ) : (
           <div className="logoutArea">
-            <button className="headerButton" onClick={() => navigate("/signin")}>
+            <BoardButton onClick={() => navigate("/signin")}>
               로그인
-            </button>
-            <button className="headerButton" onClick={() => navigate("/signup")}>
+            </BoardButton>
+            <BoardButton onClick={() => navigate("/signup")}>
               회원가입
-            </button>
+            </BoardButton>
           </div>
         )}
       </S.NavLinks>

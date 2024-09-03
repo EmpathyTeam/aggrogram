@@ -29,16 +29,6 @@ export const BoardFormContainer = styled.div`
       padding: 10px;
     }
 
-    button {
-      background-color: #fc913a;
-      color: white;
-      border: none;
-      padding: 10px;
-      margin: 0 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
     textarea {
       font-size: 15px;
       /* background-color: lightgray; */
@@ -90,7 +80,7 @@ export const BoardFormContainer = styled.div`
     }
 
     .uploadBtn {
-      background-color: #fc913a;
+      background-color: #ff7300;
       color: white;
       width: 150px;
       height: 30px;
@@ -99,6 +89,14 @@ export const BoardFormContainer = styled.div`
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
+      &:hover {
+        background-color: #fc913a;
+      }
+
+      &:active {
+        border: 1px solid black;
+      }
     }
 
     #file {

@@ -166,7 +166,7 @@ const SectionTitle = styled.div`
   text-align: center;
   font-weight: bold;
   margin: 40px 0;
-  color: #fc913a; 
+  color: #fc913a;
 `;
 
 const ProfileContainer = styled.div`
@@ -259,16 +259,29 @@ const EditButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
-  background-color: #fc913a;
+  background-color: #ff7300;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #fc913a;
+  }
+
+  &:active {
+    border: 1px solid black;
+  }
 `;
 
 const SaveButton = styled(EditButton)`
-  background-color: #fc913a;
+  background-color: #ff7300;
+
   &:hover {
     background-color: #fc913a;
+  }
+
+  &:active {
+    border: 1px solid black;
   }
 `;
 
