@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { supabase } from "../../configs/supabaseConfig";
 import { Link, useNavigate } from "react-router-dom";
 import { JoinContainer } from "../../pages/Join";
-// sweetalert2 라이브러리
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -70,13 +67,8 @@ const SignUp = () => {
       }
     });
 
-    Swal.fire({
-      title: `${nickname}님 환영합니다!\n지금 바로 어?그로그램을 즐겨보세요.😎`,
-      confirmButtonColor: "#fc913a",
-      confirmButtonText: "확인"
-    }).then(() => {
-      navigate("/signin");
-    });
+    alert(`${nickname}님 환영합니다! 지금 바로 어?그로그램을 즐겨보세요.😎`);
+    navigate("/signin");
   };
 
   return (
