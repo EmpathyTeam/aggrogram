@@ -52,18 +52,19 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
       imageUrl = getImageUrl(data.fullPath);
     }
 
+    console.log(user.user_metadata.avatar_url);
     const postObj = {
       id: postId, // 수정에만 필요 (등록할때는 null)
       userId: user.id,
       nickname: user.user_metadata.nickname,
       title: title,
       imageUrl: imageUrl,
-      content: content
+      content: content,
+      avatar_url: user.user_metadata.avatar_url
     };
 
     onSubmit(postObj);
   };
-
   return (
     <S.BoardFormContainer>
       <form onSubmit={handleSubmit}>

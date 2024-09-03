@@ -5,9 +5,7 @@ import { AggrogramProvider } from "./contexts/AggrogramContext.jsx";
 function App() {
   return (
     <>
-      <AggrogramProvider>
-        <Router />
-      </AggrogramProvider>
+      <Router />
     </>
   );
 }
