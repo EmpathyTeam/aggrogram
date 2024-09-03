@@ -1,16 +1,23 @@
 # 어?그로그램
 
 Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피드 프로젝트
+![image](https://github.com/user-attachments/assets/63f7d43e-dedb-4059-a304-12d306ce3e5a)
 
-# 🖥️ 프로젝트 소개
+## 🖥️ 프로젝트 소개
 
-유저 간의 취미를 공유할 수 있는 웹 페이지
+유저 간의 취미를 자유롭게 공유할 수 있는 웹 서비스
 
-# 🕰️ 개발 기간
+## 👨‍👩‍👧‍👦 팀 소개
+
+|   권다정    |  노용철  |  이재호  |    이준    |     정민지     |
+| :---------: | :------: | :------: | :--------: | :------------: |
+| @kwondajung | @RYC0208 | @jeho017 | @junjun932 | @jungminji0215 |
+
+## 🕰️ 개발 기간
 
 2024.08.28 ~ 2024.09.03
 
-# 📂 폴더 구조
+## 📂 폴더 구조
 
 📦src  
  ┣ 📂api  
@@ -61,7 +68,7 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
  ┣ 📜index.css  
  ┗ 📜main.jsx
 
-# 🧩 주요 기능
+## 🧩 주요 기능
 
 ## 1. 회원가입 및 로그인
 
@@ -75,7 +82,7 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 ![image](https://github.com/user-attachments/assets/0e317e30-bdf3-436d-8beb-a3afc5ed11a7)
 회원가입 시 입력했던 이메일과 비밀번호를 입력하여 `로그인`을 할 수 있습니다.
 
-## 2. 게시글
+### 2. 게시글
 
 ### 2-1. 등록(Create)
 
@@ -101,7 +108,7 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 ![image](https://github.com/user-attachments/assets/bd3998a7-2fe0-4c0b-aa2c-15e8c8b6ba3e)
 수정과 마찬가지로 `삭제하기` 클릭 시 본인이 썼던 게시글에 한하여 삭제가 가능합니다.
 
-## 3. 마이페이지
+### 3. 마이페이지
 
 ### 3-1. 정보 조회
 
@@ -117,9 +124,9 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 ![image](https://github.com/user-attachments/assets/3ce0cc11-48ab-4490-957c-03009b8ee784)
 수정한 프로필이 변경된 모습입니다.
 
-# 🚨 트러블 슈팅
+## 🚨 트러블 슈팅
 
-## 마이페이지에서 새로고침 클릭 시 다른 페이지로 이동하는 오류
+마이페이지에서 새로고침 클릭 시 다른 페이지로 이동하는 오류 발생
 
 ### 1. 구현하고자 했던 부분
 
@@ -213,7 +220,7 @@ const [user, setUser] = useState({
 
 user의 초기값을 회원가입 때 받아오는 정보로, 그리고 그 정보를 빈 스트링으로 할당했다.
 
-##
+# 📝Technologies & Tools
 
 ![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
@@ -226,3 +233,5 @@ user의 초기값을 회원가입 때 받아오는 정보로, 그리고 그 정�
 ![css](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)
 ![prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 ![git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![vscode](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
