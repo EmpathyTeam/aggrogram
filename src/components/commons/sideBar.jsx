@@ -19,9 +19,9 @@ const Sidebar = () => {
   const handleCreatePostClick = () => {
     if (user === null) {
       alert("로그인한 유저만 작성이 가능합니다.");
-      navigate("signin");
+      navigate("/signin");
     } else {
-      navigate("write");
+      navigate("/write");
     }
   };
   

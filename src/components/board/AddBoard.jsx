@@ -22,7 +22,7 @@ const AddBoard = () => {
     setPosts((prev) => [...prev, postObj]);
 
     alert("등록이 완료되었습니다.");
-    navigate("/");
+    navigate(-1);
   };
 
   return <BoardForm onSubmit={handleUploadPost} isEditMode={false} postId={null} />;

@@ -1,12 +1,12 @@
 // src/components/Header.js
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "../styles/HeaderStyle";
 import { AggrogramContext } from "../contexts/AggrogramContext";
 
 const Header = () => {
   const { user, signOut } = useContext(AggrogramContext);
-
+  const navigate = useNavigate();
   return (
     <S.HeaderContainer>
       <S.NavLinks>
@@ -14,9 +14,13 @@ const Header = () => {
           <Link to="/">어? 그로그램</Link>
         </div>
         {user ? (
-          <div>
-            <Link>{user.user_metadata.nickname}님 안녕하세요</Link>
-            <Link to={`/mypage?id=${user.id}`}>마이페이지</Link>
+          <div className="loginArea">
+            <Link to={`/mypage?id=${user.id}`} className="welcomeMessage">
+              <div>
+                <img src={user.user_metadata.avatar_url} alt="" />
+              </div>
+              <span>{user.user_metadata.nickname} 님</span>
+            </Link>
             {/* <button
               onClick={() => {
                 navigate(`/mypage?id=${user.id}`);
@@ -24,12 +28,18 @@ const Header = () => {
             >
               마이 페이지
             </button> */}
-            <Link onClick={signOut}>로그아웃</Link>
+            <button className="headerButton" onClick={signOut}>
+              로그아웃
+            </button>
           </div>
         ) : (
-          <div>
-            <Link to="/signin">로그인</Link>
-            <Link to="/signup">회원가입</Link>
+          <div className="logoutArea">
+            <button className="headerButton" onClick={() => navigate("/signin")}>
+              로그인
+            </button>
+            <button className="headerButton" onClick={() => navigate("/signup")}>
+              회원가입
+            </button>
           </div>
         )}
       </S.NavLinks>

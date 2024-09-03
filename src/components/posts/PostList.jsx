@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useAggrogram } from "../../contexts/AggrogramContext";
 import Spinner from "../commons/Spinner";
-
+import Sidebar from "../commons/sideBar"
 const PostList = ({ isMyPage }) => {
   const { user, posts, getAsyncPosts, loading } = useAggrogram();
 
@@ -12,7 +12,7 @@ const PostList = ({ isMyPage }) => {
   }, [user, getAsyncPosts]);
 
   const filteredPosts = isMyPage ? posts.filter((post) => post.user_id === user.id) : posts;
-  return (  
+  return (
     <StyledPostList>
       {loading ? (
         <Spinner />
@@ -23,6 +23,7 @@ const PostList = ({ isMyPage }) => {
       ) : (
         filteredPosts.map((post) => <PostCard key={post.id} post={post} />)
       )}
+      <Sidebar />
     </StyledPostList>
   );
 };

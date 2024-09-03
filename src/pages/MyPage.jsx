@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAggrogram } from "../contexts/AggrogramContext";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { supabase } from "../configs/supabaseConfig";
 import { getFormatDate } from "../utils/formatDate"; // Supabase 설정 파일 import
 import PostList from "../components/posts/PostList";
@@ -56,13 +56,19 @@ const MyPage = () => {
       }
       imgUrl = getImageUrl(data.fullPath);
     }
-
+    if (newDescription.length > 100) {
+      return alert(
+        `          
+        ${user.user_metadata.nickname}님 안녕하세요! 
+        프로필 소개는 100자 이상으로 작성하실 수 없습니다 😎
+        `
+      );
+    }
     const updates = {
       avatar_url: imgUrl,
       nickname: newNickname,
       description: newDescription
     };
-
     try {
       const { error: userError } = await supabase.auth.updateUser({
         data: updates
@@ -74,8 +80,8 @@ const MyPage = () => {
 
       const { error: postsError } = await supabase
         .from("posts")
-        .update({ nickname: newNickname, avatar_url: imgUrl})
-        .eq("user_id", user.id); 
+        .update({ nickname: newNickname, avatar_url: imgUrl })
+        .eq("user_id", user.id);
 
       if (postsError) {
         throw postsError;
@@ -116,6 +122,7 @@ const MyPage = () => {
                     onChange={(e) => setNewNickname(e.target.value)}
                   />
                   <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} />
+                  <DescriptionLength length={newDescription.length}>{newDescription.length}/100</DescriptionLength>
                   <label htmlFor="file-upload" className="file-label">
                     이미지 파일첨부
                   </label>
@@ -136,7 +143,7 @@ const MyPage = () => {
             )}
           </ProfileContainer>
 
-          <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
+          <SectionTitle>My Post</SectionTitle>
           <PostList isMyPage={true} />
         </>
       )}
@@ -154,10 +161,12 @@ const Section = styled.section`
   align-items: center;
 `;
 
-const SectionTitle = styled.h3`
-  font-size: 2em;
+const SectionTitle = styled.div`
+  font-size: 3em;
   text-align: center;
+  font-weight: bold;
   margin: 40px 0;
+  color: #fc913a; 
 `;
 
 const ProfileContainer = styled.div`
@@ -166,9 +175,10 @@ const ProfileContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 400px;
   max-width: 400px;
   margin: 20px;
 `;
@@ -240,6 +250,9 @@ const Description = styled.p`
   text-align: center;
   margin-bottom: 20px;
   padding: 0 10px;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.5;
 `;
 
 const EditButton = styled.button`
@@ -257,4 +270,17 @@ const SaveButton = styled(EditButton)`
   &:hover {
     background-color: #fc913a;
   }
+`;
+
+const DescriptionLength = styled.div`
+  position: relative;
+  left: 150px;
+  font-size: 14px;
+  color: #b8b8b8;
+
+  ${({ length }) =>
+    length > 100 &&
+    css`
+      color: red; /* length가 100 이상일 때 빨간색으로 변경 */
+    `}
 `;
