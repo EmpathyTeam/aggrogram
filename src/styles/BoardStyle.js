@@ -9,6 +9,7 @@ export const BoardContainer = styled.div`
   border-radius:20px;
 
   
+  
   .postInfoArea {
     display: flex;
     flex-direction: column;
