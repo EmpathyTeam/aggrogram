@@ -26,13 +26,13 @@ const UpdateBoard = () => {
     if (postUpdateError) throw postUpdateError;
 
     const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
-    setPosts(updatedList);
 
     Swal.fire({
       title: "수정이 완료되었습니다.",
       confirmButtonColor: "#fc913a",
       confirmButtonText: "확인"
     }).then(() => {
+      setPosts(updatedList);
       navigate("/");
     });
   };
