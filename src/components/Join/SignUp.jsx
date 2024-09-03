@@ -32,7 +32,7 @@ const SignUp = () => {
       setEmailMsg("이메일 형식이 올바르지 않습니다.");
       setIsEmail(false);
     } else {
-      setEmailMsg("사용 가능한 이메일입니다.");
+      setEmailMsg("");
       setIsEmail(true);
     }
   };
@@ -46,7 +46,7 @@ const SignUp = () => {
       setPasswordMsg("보안이 취약한 비밀번호입니다.");
       setIsPassword(false);
     } else {
-      setPasswordMsg("사용 가능한 비밀번호입니다.");
+      setPasswordMsg("");
       setIsPassword(true);
     }
   };

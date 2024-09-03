@@ -82,4 +82,9 @@ export const JoinContainer = styled.div`
     margin-top: 10px;
     margin-bottom: 20px;
   }
+
+  .message {
+    color: red;
+    font-size: 10pt;
+  }
 `;

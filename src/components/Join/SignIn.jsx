@@ -8,11 +8,11 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [isValid, setIsValid] = useState(false);
+  // const [isValid, setIsValid] = useState(false);
 
-  // 이메일 & 비밀번호 정규식
+  // 이메일 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
+  // const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
 
   // 유효성 검사
   const [isEmail, setIsEmail] = useState(false);
@@ -53,7 +53,7 @@ const SignIn = () => {
         <form onSubmit={handleSignin}>
           <h1>Login</h1>
           <input required placeholder="이메일을 입력해주세요." type="email" value={email} onChange={checkEmail} />
-          <Msg className="message">{emailMsg}</Msg>
+          <p className="message">{emailMsg}</p>
           <input
             required
             placeholder="비밀번호를 입력해주세요."
@@ -77,13 +77,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
-const Msg = styled.p`
-  color: ${function ({ setIsEmail }) {
-    if (setIsEmail) {
-      return "green";
-    } else {
-      return "red";
-    }
-  }};
-`;
