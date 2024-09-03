@@ -42,7 +42,6 @@ export const AggrogramProvider = ({ children }) => {
 
   useEffect(() => {
     getAsyncPosts();
-    checkProfile();
     getSession();
 
     // 유저의 권한 변경 여부 파악
@@ -56,15 +55,8 @@ export const AggrogramProvider = ({ children }) => {
     };
   }, []);
 
-  const [profileUrl, setProfileUrl] = useState("");
-
-  function checkProfile() {
-    const { data } = supabase.storage.from("avatarImg").getPublicUrl("default-profile.jpg");
-    console.log("asda", data);
-    setProfileUrl(data.publicUrl);
-  }
   return (
-    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut, profileUrl }}>
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
       {children}
     </AggrogramContext.Provider>
   );

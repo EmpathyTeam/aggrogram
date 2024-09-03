@@ -3,6 +3,7 @@ import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-
 import { useAggrogram } from "../contexts/AggrogramContext";
 import styled from "styled-components";
 import { supabase } from "../configs/supabaseConfig"; // Supabase 설정 파일 import
+import PostList from "../components/posts/PostList";
 
 const MyPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -92,7 +93,7 @@ const MyPage = () => {
           </ProfileContainer>
 
           <SectionTitle>{user.user_metadata.nickname}님의 게시글</SectionTitle>
-          <PostsContainer>
+          {/* <PostsContainer>
             {posts.filter((post) => post.user_id === paramsId).length > 0 ? (
               posts
                 .filter((post) => post.user_id === paramsId)
@@ -105,7 +106,8 @@ const MyPage = () => {
             ) : (
               <p>게시글이 없습니다.</p>
             )}
-          </PostsContainer>
+          </PostsContainer> */}
+          <PostList isMyPage={true} />
         </>
       )}
     </Section>

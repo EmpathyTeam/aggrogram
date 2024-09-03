@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const PostCard = ({ post, profileUrl }) => {
+const PostCard = ({ post }) => {
   const navigate = useNavigate();
-
+  const [profileImage, setProfileImage] = useState("");
   const goToDetail = () => {
     navigate(`/board?id=${post.id}`);
   };
@@ -18,7 +18,14 @@ const PostCard = ({ post, profileUrl }) => {
         <h1>{post.title}</h1>
         <div className="profileArea">
           <div className="userInfo">
-            <img src={profileUrl} alt=" " />
+            <img
+              src={
+                profileImage
+                  ? profileImage
+                  : "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
+              }
+              alt=" "
+            />
             <p className="userNickname">{post.nickname}</p>
           </div>
         </div>
@@ -56,8 +63,8 @@ const StyledPostCard = styled.li`
 
     img {
       width: 100%;
-        height: 100%;
-        object-fit: cover;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
