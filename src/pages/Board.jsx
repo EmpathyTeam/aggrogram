@@ -1,6 +1,6 @@
 import * as S from "../styles/BoardStyle.js";
-import React from "react";
 
+import React from "react";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Board = () => {
   const navigate = useNavigate();
   const { posts, setPosts, user } = useAggrogram();
+  console.log(posts);
 
   const searchParams = new URLSearchParams(location.search);
   const postId = Number(searchParams.get("id"));

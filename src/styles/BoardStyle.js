@@ -6,16 +6,19 @@ export const BoardContainer = styled.div`
   align-items: center;
   padding: 20px;
   margin-top: 50px;
+  border-radius:20px;
 
+  
   .postInfoArea {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    border-radius: 20px;
   }
 
   .postArea {
     border: 1px solid #fc913a;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -51,6 +54,10 @@ export const BoardContainer = styled.div`
     width: 500px;
     height: 200px;
     padding: 10px;
+    white-space:pre-wrap;
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-x: hidden;
   }
 
   button {

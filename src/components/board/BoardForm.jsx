@@ -9,7 +9,11 @@ import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
 import * as S from "../../styles/BoardFormStyle.js";
 
 // supabase
-import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
+import { getImageUrl, uploadPostImage } from "../../api/supabaseStorage.js";
+
+// 상태관리 컨텍스트
+import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const navigate = useNavigate();
