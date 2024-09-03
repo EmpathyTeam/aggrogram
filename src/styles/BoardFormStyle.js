@@ -40,6 +40,8 @@ export const BoardFormContainer = styled.div`
       height: 200px;
       padding: 10px;
       resize: none;
+      white-space: pre-line;
+    overflow-y: auto;
     }
 
     .previewImage {

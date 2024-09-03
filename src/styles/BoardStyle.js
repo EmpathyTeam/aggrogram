@@ -53,6 +53,7 @@ export const BoardContainer = styled.div`
     width: 500px;
     height: 200px;
     padding: 10px;
+    
   }
 
   button {
