@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { JoinContainer } from "../../pages/Join";
 import { supabase } from "../../configs/supabaseConfig";
 import styled from "styled-components";
+import { AggrogramContext } from "../../contexts/AggrogramContext";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [nickname, setNickname] = useState("");
+  const { user, signOut } = useContext(AggrogramContext);
 
   // 이메일 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -25,10 +27,10 @@ const SignIn = () => {
     setEmail(currentEmail);
 
     if (!emailRegEx.test(currentEmail)) {
-      setEmailMsg("이메일 형식이 올바르지 않습니다.");
+      setEmailMsg("⚠ 이메일 형식이 올바르지 않습니다.");
       setIsEmail(false);
     } else {
-      setEmailMsg("");
+      setEmailMsg("✅ 올바른 이메일 형식입니다.");
       setIsEmail(true);
     }
   };
@@ -42,16 +44,15 @@ const SignIn = () => {
       email: email,
       password: password
     });
-    alert("로그인 되었습니다.");
+    alert(`안녕하세요! 메인 페이지로 바로 이동합니다.🚗💨`);
   };
-
   return (
     <JoinContainer>
       <div>
         <form onSubmit={handleSignin}>
           <h1>Login</h1>
           <input required placeholder="이메일을 입력해주세요." type="email" value={email} onChange={checkEmail} />
-          <p className="message">{emailMsg}</p>
+          <p className={isEmail ? "passMessage" : "errorMessage"}>{emailMsg}</p>
           <input
             required
             placeholder="비밀번호를 입력해주세요."

@@ -81,8 +81,12 @@ export const JoinContainer = styled.div`
     margin-bottom: 20px;
   }
 
-  .message {
+  .errorMessage {
     color: red;
+    font-size: 10pt;
+  }
+  .passMessage {
+    color: green;
     font-size: 10pt;
   }
 `;
