@@ -6,6 +6,8 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 
 유저 간의 취미를 공유할 수 있는 웹 페이지
 
+# 👨‍👩‍👧‍👦 팀 소개
+
 # 🕰️ 개발 기간
 
 2024.08.28 ~ 2024.09.03
@@ -213,7 +215,7 @@ const [user, setUser] = useState({
 
 user의 초기값을 회원가입 때 받아오는 정보로, 그리고 그 정보를 빈 스트링으로 할당했다.
 
-##
+# 📝Technologies & Tools
 
 ![react](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
@@ -226,3 +228,5 @@ user의 초기값을 회원가입 때 받아오는 정보로, 그리고 그 정�
 ![css](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)
 ![prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
 ![git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![vscode](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+![notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
