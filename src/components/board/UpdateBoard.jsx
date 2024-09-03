@@ -1,5 +1,5 @@
 // React 라이브러리
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 // 상태관리 컨텍스트
