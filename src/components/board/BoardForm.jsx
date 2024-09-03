@@ -1,6 +1,9 @@
 // React 라이브러리
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// supabase
+import { getImageUrl, uploadPostImage } from "../../api/supabaseStorage.js";
 
 // 상태관리 컨텍스트
 import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
@@ -8,8 +11,7 @@ import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
 // 스타일
 import * as S from "../../styles/BoardFormStyle.js";
 
-// supabase
-import { uploadPostImage, getImageUrl } from "../../api/supabaseStorage.js";
+import BoardButton from "./BoardButton.jsx";
 
 const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const navigate = useNavigate();
@@ -24,6 +26,10 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const [content, setContent] = useState("");
 
   const titleRef = useRef("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const post = posts.find((post) => post.id === postId);
@@ -58,7 +64,6 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
       imageUrl = getImageUrl(data.fullPath);
     }
 
-    console.log(user.user_metadata.avatar_url);
     const postObj = {
       id: postId, // 수정에만 필요 (등록할때는 null)
       userId: user.id,
@@ -71,6 +76,11 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
 
     onSubmit(postObj);
   };
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <S.BoardFormContainer>
       <form onSubmit={handleSubmit}>
@@ -100,10 +110,10 @@ const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
 
         <textarea placeholder="내용을 입력하세요." value={content} onChange={(e) => setContent(e.target.value)} />
         <div>
-          <button type="button" onClick={() => navigate(-1)}>
+          <BoardButton type={"button"} onClick={handleBackClick}>
             뒤로가기
-          </button>
-          <button type="submit">{isEditMode ? "수정하기" : "등록하기"}</button>
+          </BoardButton>
+          <BoardButton type={"submit"}>{isEditMode ? "수정하기" : "등록하기"}</BoardButton>
         </div>
       </form>
     </S.BoardFormContainer>

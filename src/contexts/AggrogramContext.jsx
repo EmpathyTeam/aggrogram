@@ -34,7 +34,7 @@ export const AggrogramProvider = ({ children }) => {
       alert("로그아웃 오류입니다.");
       console.log("로그인 에러 =>", error);
     } else {
-      alert("로그아웃 되었습니다.");
+      alert("로그아웃 되었습니다. 안녕히 가세요!");
       navigate("/");
     }
   };

@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const BoardFormContainer = styled.div`
   display: flex;
+
   justify-content: center;
   align-items: center;
+
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 30px;
 
   form {
     border: 1px solid #fc913a;
@@ -14,7 +16,7 @@ export const BoardFormContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 30px 40px;
     gap: 30px;
 
     .title {
@@ -47,12 +49,12 @@ export const BoardFormContainer = styled.div`
       border-radius: 5px;
       resize: none;
       white-space: pre-line;
-    overflow-y: auto;
+      overflow-y: auto;
     }
 
     .previewImage {
       width: 500px;
-      height: 200px;
+      height: 300px;
       border: 1px solid gray;
       padding: 10px;
       border-radius: 5px;
@@ -73,7 +75,7 @@ export const BoardFormContainer = styled.div`
       border: 1px solid gray;
       border-radius: 5px;
       width: 500px;
-      height: 200px;
+      height: 300px;
       padding: 10px;
       resize: none;
       color: gray;
