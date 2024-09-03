@@ -8,6 +8,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isValid, setIsValid] = useState(false);
 
   // 이메일 & 비밀번호 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -34,6 +35,7 @@ const SignIn = () => {
     }
   };
 
+  // 로그인 버튼 클릭 시
   const handleSignin = async (e) => {
     e.preventDefault();
 
@@ -51,7 +53,7 @@ const SignIn = () => {
         <form onSubmit={handleSignin}>
           <h1>Login</h1>
           <input required placeholder="이메일을 입력해주세요." type="email" value={email} onChange={checkEmail} />
-          <p className="message">{emailMsg}</p>
+          <Msg className="message">{emailMsg}</Msg>
           <input
             required
             placeholder="비밀번호를 입력해주세요."
@@ -59,10 +61,10 @@ const SignIn = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
-              passwordCheck(e.target.value);
+              // passwordCheck(e.target.value);
             }}
           />
-          <button type="submit" disabled={!(setIsEmail && setIsPassword)}>
+          <button className="signinBtn" type="submit" disabled={!(setIsEmail && setIsPassword)}>
             로그인
           </button>
         </form>
@@ -75,3 +77,13 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+const Msg = styled.p`
+  color: ${function ({ setIsEmail }) {
+    if (setIsEmail) {
+      return "green";
+    } else {
+      return "red";
+    }
+  }};
+`;

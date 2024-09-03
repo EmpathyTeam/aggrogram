@@ -16,7 +16,7 @@ export default Join;
 
 export const JoinContainer = styled.div`
   width: 500px;
-  height: 500px;
+  height: 520px;
   display: relative;
   border: 1px solid #fc913a;
   margin: auto;
@@ -43,16 +43,21 @@ export const JoinContainer = styled.div`
     margin: auto;
     /* margin-bottom: 20px; */
     border: 0;
-    border-radius: 10px;
-    background-color: #ececec;
+    border-radius: 30px;
+    background-color: #f5f5f5;
+    /* border-bottom: 1px solid #fc913a; */
     padding-left: 20px;
+  }
+
+  input:focus {
+    outline: 1px solid #fc913a;
   }
 
   button {
     width: 420px;
     height: 60px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: #fc913a;
     color: white;
     margin: 20px auto 10px auto;
