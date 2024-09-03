@@ -12,7 +12,6 @@ export const useAggrogram = () => {
 export const AggrogramProvider = ({ children }) => {
   //1. 초기 값이 존재하면 이건 로딩 중인 상태, 2. null 이사람 비회원 상태, 3. 값이 들어오면 로그인 상태
 
-  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState({
     email: "",
@@ -21,13 +20,11 @@ export const AggrogramProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
     if (data) {
       const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setPosts(sortedPosts);
-      setLoading(false);
     }
   };
 
@@ -64,7 +61,7 @@ export const AggrogramProvider = ({ children }) => {
   }, []);
 
   return (
-    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut, loading }}>
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
       {children}
     </AggrogramContext.Provider>
   );

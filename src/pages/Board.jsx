@@ -16,7 +16,7 @@ const Board = () => {
 
   //뒤로가기 버튼 클릭시
   const handleBack = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   //수정버튼클릭시

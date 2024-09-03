@@ -14,7 +14,7 @@ export default Main;
 
 export const MainContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
