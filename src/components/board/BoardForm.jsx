@@ -11,7 +11,7 @@ import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
 // 스타일
 import * as S from "../../styles/BoardFormStyle.js";
 
-import BoardButton from "./BoardButton.jsx";
+import BoardButton from "../commons/RadiusOrangeButton.jsx";
 
 const BoardForm = ({ onSubmit, isEditMode = false, postId }) => {
   const navigate = useNavigate();
