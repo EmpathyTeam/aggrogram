@@ -29,10 +29,10 @@ const SignUp = () => {
     setEmail(currentEmail);
 
     if (!emailRegEx.test(currentEmail)) {
-      setEmailMsg("이메일 형식이 올바르지 않습니다.");
+      setEmailMsg("⚠ 이메일 형식이 올바르지 않습니다.");
       setIsEmail(false);
     } else {
-      setEmailMsg("사용 가능한 이메일입니다.");
+      setEmailMsg("✅ 올바른 이메일 형식입니다.");
       setIsEmail(true);
     }
   };
@@ -43,10 +43,10 @@ const SignUp = () => {
     setPassword(currentPassword);
 
     if (!passwordRegEx.test(currentPassword)) {
-      setPasswordMsg("보안이 취약한 비밀번호입니다.");
+      setPasswordMsg("⚠ 비밀번호는 영어, 소문자를 조합하여 8-20자로 적어주세요.");
       setIsPassword(false);
     } else {
-      setPasswordMsg("사용 가능한 비밀번호입니다.");
+      setPasswordMsg("✅ 사용 가능한 비밀번호입니다.");
       setIsPassword(true);
     }
   };
@@ -76,7 +76,7 @@ const SignUp = () => {
         <form onSubmit={handlesignUp}>
           <h1>SignUp</h1>
           <input required placeholder="이메일을 입력해주세요." type="email" value={email} onChange={checkEmail} />
-          <p className="message">{emailMsg}</p>
+          <p className={isEmail ? "passMessage" : "errorMessage"}>{emailMsg}</p>
           <input
             required
             placeholder="비밀번호를 입력해주세요."
@@ -84,7 +84,7 @@ const SignUp = () => {
             value={password}
             onChange={checkPassword}
           />
-          <p className="message">{passwordMsg}</p>
+          <p className={isPassword ? "passMessage" : "errorMessage"}>{passwordMsg}</p>
           <input
             required
             placeholder="닉네임을 입력해주세요."
