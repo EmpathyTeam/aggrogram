@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   background-color: #fc913a;
   width: 100%;
-  height: 50px;
+  height: 60px;
   color: white;
   display: flex;
   justify-content: center;
@@ -11,6 +11,7 @@ export const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000;
 
   a {
     color: white;

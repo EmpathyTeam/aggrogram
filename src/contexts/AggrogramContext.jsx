@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getPosts } from "../api/supabasePost.js";
 import { supabase } from "../configs/supabaseConfig.js";
+import { useNavigate } from "react-router-dom";
 
 export const AggrogramContext = createContext(null);
 
@@ -9,8 +10,13 @@ export const useAggrogram = () => {
 };
 
 export const AggrogramProvider = ({ children }) => {
+  //1. 초기 값이 존재하면 이건 로딩 중인 상태, 2. null 이사람 비회원 상태, 3. 값이 들어오면 로그인 상태
+
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    email: "",
+    user_metadata: { nickname: "" }
+  });
 
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
@@ -36,7 +42,7 @@ export const AggrogramProvider = ({ children }) => {
 
   useEffect(() => {
     getAsyncPosts();
-
+    checkProfile();
     getSession();
 
     // 유저의 권한 변경 여부 파악
@@ -49,8 +55,16 @@ export const AggrogramProvider = ({ children }) => {
       authListener.subscription.unsubscribe();
     };
   }, []);
+
+  const [profileUrl, setProfileUrl] = useState("");
+
+  function checkProfile() {
+    const { data } = supabase.storage.from("avatarImg").getPublicUrl("default-profile.jpg");
+    console.log("asda", data);
+    setProfileUrl(data.publicUrl);
+  }
   return (
-    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut, profileUrl }}>
       {children}
     </AggrogramContext.Provider>
   );

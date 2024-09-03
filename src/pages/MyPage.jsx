@@ -20,6 +20,8 @@ const MyPage = () => {
       setNewNickname(user.user_metadata.nickname);
       setNewDescription(user.user_metadata.description);
       setNewAvatarUrl(user.user_metadata.avatar_url);
+    } else {
+      navigate("/signin");
     }
   }, [user]);
 
