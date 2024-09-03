@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   background-color: #fc913a;
   width: 100%;
-  height: 60px;
+  height: 80px;
   color: white;
   display: flex;
   justify-content: center;
@@ -13,28 +13,32 @@ export const HeaderContainer = styled.header`
   left: 0;
   z-index: 1000;
 
-  .headerButton {
-      cursor: pointer;
-      border: 1px solid white;
-      background-color: #ff7300;
-      border-radius: 5px;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      height: 40px;
-      width: 80px;
-      margin-left: 10px;
-      &:hover {
-        background-color: #fc913a;
-      }
+  .titleLogo {
+    margin-top: 10px;
+    cursor: pointer;
+  }
 
-      &:active {
-        border: 1px solid black;
-      }
+  .headerButton {
+    cursor: pointer;
+    border: 1px solid white;
+    background-color: #ff7300;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    height: 40px;
+    width: 80px;
+    margin-left: 10px;
+    &:hover {
+      background-color: #fc913a;
     }
 
-  .logoutArea{
+    &:active {
+      border: 1px solid black;
+    }
+  }
 
+  .logoutArea {
   }
   .loginArea {
     display: flex;
