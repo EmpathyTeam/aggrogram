@@ -8,6 +8,9 @@ import { AggrogramContext } from "../../contexts/AggrogramContext.jsx";
 // supabase
 import { uploadPost } from "../../api/supabasePost.js";
 
+// sweetalert2 라이브러리
+import Swal from "sweetalert2";
+
 import BoardForm from "./BoardForm.jsx";
 
 const AddBoard = () => {
