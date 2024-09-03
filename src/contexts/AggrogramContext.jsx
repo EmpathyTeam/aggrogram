@@ -2,6 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getPosts } from "../api/supabasePost.js";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useNavigate } from "react-router-dom";
+// sweetalert2 라이브러리
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 export const AggrogramContext = createContext(null);
 
@@ -33,11 +36,20 @@ export const AggrogramProvider = ({ children }) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
-      alert("로그아웃 오류입니다.");
+      Swal.fire({
+        title: "로그아웃 오류가 발생했습니다.",
+        confirmButtonColor: "#fc913a",
+        confirmButtonText: "확인"
+      });
       console.log("로그인 에러 =>", error);
     } else {
-      alert("로그아웃 되었습니다. 안녕히 가세요!");
-      navigate("/");
+      Swal.fire({
+        title: "로그아웃 되었습니다. 안녕히 가세요!",
+        confirmButtonColor: "#fc913a",
+        confirmButtonText: "확인"
+      }).then(() => {
+        navigate("/");
+      });
     }
   };
 
