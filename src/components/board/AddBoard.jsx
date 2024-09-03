@@ -25,13 +25,8 @@ const AddBoard = () => {
 
     setPosts((prev) => [...prev, postObj]);
 
-    Swal.fire({
-      title: "등록이 완료되었습니다.",
-      confirmButtonColor: "#fc913a",
-      confirmButtonText: "확인"
-    }).then(() => {
-      navigate("/");
-    });
+    alert("등록이 완료되었습니다.");
+    navigate("/");
   };
 
   return <BoardForm onSubmit={handleUploadPost} isEditMode={false} postId={null} />;
