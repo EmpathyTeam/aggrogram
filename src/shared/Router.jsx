@@ -26,11 +26,11 @@ const AuthRoute = () => {
 
 // 로그인한 상태에서만 접근 가능한 라우터
 const PrivateRoute = () => {
-  // const { user } = useContext(AggrogramContext);
+  const { user } = useContext(AggrogramContext);
 
-  // if (!user) {
-  //   return <Navigate to="/signin" />;
-  // }
+  if (!user) {
+    return <Navigate to="/signin" />;
+  }
 
   return <Outlet />;
 };
@@ -43,7 +43,7 @@ const Router = () => {
           <Route path="/" element={<LayOut />}>
             <Route index element={<Main />} />
             <Route path="/board" element={<Board />} />
-            <Route path="/mypage" element={<MyPage />} />
+            {/* <Route path="/mypage" element={<MyPage />} /> */}
 
             <Route element={<AuthRoute />}>
               <Route path="/signup" element={<SignUp />} />
@@ -53,6 +53,7 @@ const Router = () => {
             <Route element={<PrivateRoute />}>
               <Route path="/write" element={<AddBoard />} />
               <Route path="/update" element={<UpdateBoard />} />
+              <Route path="/mypage" element={<MyPage />} />
             </Route>
           </Route>
         </Routes>
