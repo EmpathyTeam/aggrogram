@@ -68,13 +68,17 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 
 ### 1-1. 회원가입
 
+![image](https://github.com/user-attachments/assets/aee55650-5a99-4a7b-981d-afe94ba34345)  
+이메일, 비밀번호, 닉네임을 입력하여 `회원가입`을 할 수 있습니다.
+
 ### 1-2. 로그인
+
+![image](https://github.com/user-attachments/assets/0e317e30-bdf3-436d-8beb-a3afc5ed11a7)
+회원가입 시 입력했던 이메일과 비밀번호를 입력하여 `로그인`을 할 수 있습니다.
 
 ## 2. 게시글
 
 ### 2-1. 등록(Create)
-
-<!-- ![image](https://github.com/user-attachments/assets/c52b44a7-5459-44bb-a8d9-84656b4fc91b) -->
 
 ![image](https://github.com/user-attachments/assets/1b827e38-e152-4213-aa17-3fe4869425fc)
 제목과 내용을 입력 후 `등록하기` 버튼 클릭 시 게시글이 `등록`됩니다.  
@@ -85,12 +89,13 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 ![image](https://github.com/user-attachments/assets/455eb1e6-6db1-4624-b465-34b8f1c310e4)
 사용자들이 작성한 게시글을 `조회`할 수 있으며, 각 게시물 클릭 시 상세 페이지로 이동합니다.
 
-### 2-3. 수정(Update) \*\*이미지 캡쳐 추가해야 함!!
+### 2-3. 수정(Update)
 
 ![image](https://github.com/user-attachments/assets/3b0b2e48-e358-4ed0-b0b9-09564d266828)
 `수정하기` 클릭 시 본인이 썼던 게시글에 한하여 `수정`이 가능합니다.
 
-![image](https://github.com/user-attachments/assets/15633b41-7e54-4ed2-a911-fd2703bac3bc)
+![image](https://github.com/user-attachments/assets/573c696f-c666-438a-8b56-80ebcd056fe9)
+![image](https://github.com/user-attachments/assets/b278b7b0-86e5-4dea-b2e5-f7cd580b1442)
 
 ### 2-4. 삭제(Delete)
 
@@ -99,9 +104,9 @@ Supabase를 활용하여 로그인, 회원가입 및 CRUD를 구현한 뉴스피
 
 ## 3. 마이페이지
 
-### 3-1. 정보 조회 \*\*이미지 수정해야 함!!
+### 3-1. 정보 조회
 
-![image](https://github.com/user-attachments/assets/fddb765e-6901-4e19-ab02-d13915dc20b4)
+![image](https://github.com/user-attachments/assets/b3f31722-9048-45d7-a64a-5d83c29e421c)
 회원가입 시 입력했던 닉네임을 받아옵니다.  
 또한 내가 작성한 게시글을 모아서 볼 수 있습니다.
 
@@ -159,7 +164,55 @@ const AuthRoute = () => {
 
 ### 3. 시도한 방법
 
+1. `privateRoute`에서 설계해놓은 코드 주석 처리 후 jsx 문법 쓰는 곳에서 user가 없는 경우 alert창 호출  
+   => 로그인이 되어있는 상태로 접근해도 alert창 호출됨
+
+2. 기존에 있는 `useEffect` 안에 `async await` 구문을 써서 user의 값이 들어온 후 가져오도록 설계  
+   => 1번의 방식과 같은 실행 결과
+
+3. 로딩 중 state를 추가해서 상태에 따라 로직 처리
+
+```js
+const [isLoagding, setIsLoading] = useState(false);
+```
+
+```js
+useEffect(() => {
+  if (user) {
+    setNewNickname(user.user_metadata.nickname);
+    setNewDescription(user.user_metadata.description);
+    setNewAvatarUrl(user.user_metadata.avatar_url);
+    setIsLoading(true);
+  }
+  if (!user && !isLoading) {
+    navigate("/signin");
+  }
+}, [user]);
+```
+
 ### 4. 해결 방법
+
+Context의 `user 초기값` 변경
+Context에서 user의 초기값이 `null`로 할당되어 있어서 생긴 오류였다.  
+새로고침 시 초기값인 null을 가져와서 user가 로그인 상태인데도 불구하고 user가 없다고 판단되어진 것이다.
+
+👇수정 전
+
+```js
+// Context.jsx
+const [user, setUser] = useState(null);
+```
+
+👇수정 후
+
+```js
+const [user, setUser] = useState({
+  email: "",
+  user_metadata: { nickname: "" }
+});
+```
+
+user의 초기값을 회원가입 때 받아오는 정보로, 그리고 그 정보를 빈 스트링으로 할당했다.
 
 ##
 
