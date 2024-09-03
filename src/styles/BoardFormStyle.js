@@ -18,8 +18,10 @@ export const BoardFormContainer = styled.div`
     gap: 30px;
 
     .title {
-      background-color: lightgray;
-      border: none;
+      border-radius: 5px;
+      font-size: 25px;
+      /* background-color: lightgray; */
+      border: 1px solid gray;
       width: 500px;
       height: 50px;
       padding: 10px;
@@ -31,14 +33,18 @@ export const BoardFormContainer = styled.div`
       border: none;
       padding: 10px;
       margin: 0 20px;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
     textarea {
-      background-color: lightgray;
-      border: none;
+      font-size: 15px;
+      /* background-color: lightgray; */
+      border: 1px solid gray;
       width: 500px;
-      height: 200px;
+      height: 150px;
       padding: 10px;
+      border-radius: 5px;
       resize: none;
       white-space: pre-line;
     overflow-y: auto;
@@ -47,8 +53,9 @@ export const BoardFormContainer = styled.div`
     .previewImage {
       width: 500px;
       height: 200px;
-      border: 1px solid black;
+      border: 1px solid gray;
       padding: 10px;
+      border-radius: 5px;
 
       img {
         width: 100%;
@@ -62,8 +69,9 @@ export const BoardFormContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: lightgray;
-      border: none;
+      /* background-color: lightgray; */
+      border: 1px solid gray;
+      border-radius: 5px;
       width: 500px;
       height: 200px;
       padding: 10px;
@@ -77,6 +85,22 @@ export const BoardFormContainer = styled.div`
       span:nth-child(2) {
         font-size: small;
       }
+    }
+
+    .uploadBtn {
+      background-color: #fc913a;
+      color: white;
+      width: 150px;
+      height: 30px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #file {
+      display: none;
     }
   }
 `;
