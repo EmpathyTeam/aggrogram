@@ -1,13 +1,11 @@
 import PostList from "../components/posts/PostList";
 import React from "react";
-import Sidebar from "../components/commons/sideBar";
 import styled from "styled-components";
 
 const Main = () => {
   return (
     <MainContainer>
       <PostList isMyPage={false} />
-      <Sidebar />
     </MainContainer>
   );
 };
@@ -16,7 +14,7 @@ export default Main;
 
 export const MainContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;

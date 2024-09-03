@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
-  
+
   const goToDetail = () => {
     navigate(`/board?id=${post.id}`);
   };
@@ -12,7 +12,19 @@ const PostCard = ({ post }) => {
   return (
     <StyledPostCard onClick={goToDetail} key={post.id}>
       <div className="imageArea">
-        <img src={post.img_url} alt=" " />
+        {post.img_url ? (
+          <img src={post.img_url} alt=" " />
+        ) : (
+          <div className="noImageWrap">
+            <div className="noImageEN">
+              <p>NO</p>
+              <p>IMAGE</p>
+            </div>
+            <div className="noImageKR">
+              <p>이미지가 없습니다.</p>
+            </div>
+          </div>
+        )}
       </div>
       <div className="contentsArea">
         <h1>{post.title}</h1>
@@ -54,6 +66,34 @@ const StyledPostCard = styled.li`
     height: 70%;
     background-image: linear-gradient(145deg, rgba(245, 245, 245, 0.9), #ffd9b9);
 
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: #888888;
+    font-weight: bold;
+
+    .noImageWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      font-size: 33px;
+      
+      .noImageEN {
+        display: flex;
+        flex-direction: row;
+
+        p {
+          margin-right: 10px;
+        }
+      }
+
+      .noImageKR {
+        font-size: 22px;
+      }
+    }
+
     img {
       width: 100%;
       height: 100%;
@@ -70,6 +110,7 @@ const StyledPostCard = styled.li`
     gap: 15px;
 
     h1 {
+      padding-top: 10px;
       font-size: 22px;
       font-weight: bold;
     }
