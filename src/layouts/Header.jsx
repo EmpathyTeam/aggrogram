@@ -30,16 +30,16 @@ const Header = () => {
               마이 페이지
             </button> */}
             <BoardButton  onClick={signOut}>
-              로그아웃
+              LogOut
             </BoardButton>
           </div>
         ) : (
           <div className="logoutArea">
             <BoardButton onClick={() => navigate("/signin")}>
-              로그인
+              Login
             </BoardButton>
             <BoardButton onClick={() => navigate("/signup")}>
-              회원가입
+              Sign Up
             </BoardButton>
           </div>
         )}
