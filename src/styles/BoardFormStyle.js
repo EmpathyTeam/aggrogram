@@ -46,6 +46,8 @@ export const BoardFormContainer = styled.div`
       padding: 10px;
       border-radius: 5px;
       resize: none;
+      white-space: pre-line;
+    overflow-y: auto;
     }
 
     .previewImage {
