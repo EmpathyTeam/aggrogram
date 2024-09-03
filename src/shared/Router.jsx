@@ -12,11 +12,12 @@ import MyPage from "../pages/MyPage";
 import SignIn from "../components/Join/SignIn";
 import SignUp from "../components/Join/SignUp";
 import UpdateBoard from "../components/board/UpdateBoard";
+import { AggrogramProvider } from "../contexts/AggrogramContext";
 
 // 로그인한 상태라면 접근 불가능한 라우터
 const AuthRoute = () => {
   const { user } = useContext(AggrogramContext);
-
+  
   if (user) {
     return <Navigate to="/" />;
   }
@@ -39,24 +40,26 @@ const Router = () => {
   return (
     <BrowserRouter>
       <S.RoutesArea>
-        <Routes>
-          <Route path="/" element={<LayOut />}>
-            <Route index element={<Main />} />
-            <Route path="/board" element={<Board />} />
-            {/* <Route path="/mypage" element={<MyPage />} /> */}
+        <AggrogramProvider>
+          <Routes>
+            <Route path="/" element={<LayOut />}>
+              <Route index element={<Main />} />
+              <Route path="/board" element={<Board />} />
+              {/* <Route path="/mypage" element={<MyPage />} /> */}
 
-            <Route element={<AuthRoute />}>
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/signin" element={<SignIn />} />
-            </Route>
+              <Route element={<AuthRoute />}>
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signin" element={<SignIn />} />
+              </Route>
 
-            <Route element={<PrivateRoute />}>
-              <Route path="/write" element={<AddBoard />} />
-              <Route path="/update" element={<UpdateBoard />} />
-              <Route path="/mypage" element={<MyPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/write" element={<AddBoard />} />
+                <Route path="/update" element={<UpdateBoard />} />
+                <Route path="/mypage" element={<MyPage />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </AggrogramProvider>
       </S.RoutesArea>
     </BrowserRouter>
   );

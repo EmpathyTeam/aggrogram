@@ -1,21 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PostCard from "./PostCard";
 import { useAggrogram } from "../../contexts/AggrogramContext";
 import Spinner from "../commons/Spinner";
 
 const PostList = ({ isMyPage }) => {
-  const { user, posts, getAsyncPosts, profileUrl } = useAggrogram();
+  const { user, posts, getAsyncPosts, loading } = useAggrogram();
 
   useEffect(() => {
     getAsyncPosts();
-  }, [getAsyncPosts]);
+  }, [user, getAsyncPosts]);
 
   const filteredPosts = isMyPage ? posts.filter((post) => post.user_id === user.id) : posts;
-
-  return (
+  return (  
     <StyledPostList>
-      {filteredPosts.length === 0 ? <Spinner /> : filteredPosts.map((post) => <PostCard key={post.id} post={post} profileUrl={profileUrl}/>)}
+      {loading ? (
+        <Spinner />
+      ) : filteredPosts.length === 0 ? (
+        <NullDataContainer>
+          <h1>게시물이 없는데 이래도 안 쓰실 건가요..?</h1>
+        </NullDataContainer>
+      ) : (
+        filteredPosts.map((post) => <PostCard key={post.id} post={post} />)
+      )}
     </StyledPostList>
   );
 };
@@ -28,4 +35,15 @@ const StyledPostList = styled.ul`
   flex-wrap: wrap;
   width: 100%;
   gap: 30px;
+`;
+
+const NullDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 130px;
+  }
 `;

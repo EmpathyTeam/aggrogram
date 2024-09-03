@@ -12,16 +12,23 @@ export const useAggrogram = () => {
 export const AggrogramProvider = ({ children }) => {
   //1. 초기 값이 존재하면 이건 로딩 중인 상태, 2. null 이사람 비회원 상태, 3. 값이 들어오면 로그인 상태
 
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState({
     email: "",
     user_metadata: { nickname: "" }
   });
 
+  const navigate = useNavigate();
+
+
   const getAsyncPosts = async () => {
     const { data } = await getPosts();
-    const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    setPosts(sortedPosts);
+    if (data) {
+      const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      setPosts(sortedPosts);
+      setLoading(false);
+    }
   };
 
   const signOut = async () => {
@@ -31,6 +38,7 @@ export const AggrogramProvider = ({ children }) => {
       console.log("로그인 에러 =>", error);
     } else {
       alert("로그아웃 되었습니다.");
+      navigate("/");
     }
   };
 
@@ -42,7 +50,6 @@ export const AggrogramProvider = ({ children }) => {
 
   useEffect(() => {
     getAsyncPosts();
-    checkProfile();
     getSession();
 
     // 유저의 권한 변경 여부 파악
@@ -56,15 +63,8 @@ export const AggrogramProvider = ({ children }) => {
     };
   }, []);
 
-  const [profileUrl, setProfileUrl] = useState("");
-
-  function checkProfile() {
-    const { data } = supabase.storage.from("avatarImg").getPublicUrl("default-profile.jpg");
-    console.log("asda", data);
-    setProfileUrl(data.publicUrl);
-  }
   return (
-    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut, profileUrl }}>
+    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut, loading }}>
       {children}
     </AggrogramContext.Provider>
   );

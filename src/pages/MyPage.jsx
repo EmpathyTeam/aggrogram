@@ -20,8 +20,6 @@ const MyPage = () => {
       setNewNickname(user.user_metadata.nickname);
       setNewDescription(user.user_metadata.description);
       setNewAvatarUrl(user.user_metadata.avatar_url);
-    } else {
-      navigate("/signin");
     }
   }, [user]);
 
@@ -58,21 +56,31 @@ const MyPage = () => {
       }
       imgUrl = getImageUrl(data.fullPath);
     }
+
     const updates = {
       avatar_url: imgUrl,
       nickname: newNickname,
       description: newDescription
     };
 
-    // Supabase 업데이트 호출
-    const { error } = await supabase.auth.updateUser({
-      data: updates
-    });
+    try {
+      const { error: userError } = await supabase.auth.updateUser({
+        data: updates
+      });
 
-    if (error) {
-      console.error("프로필 업데이트 오류:", error);
-    } else {
-      // 상태 업데이트
+      if (userError) {
+        throw userError;
+      }
+
+      const { error: postsError } = await supabase
+        .from("posts")
+        .update({ nickname: newNickname, avatar_url: imgUrl})
+        .eq("user_id", user.id); 
+
+      if (postsError) {
+        throw postsError;
+      }
+
       setUser((prevUser) => ({
         ...prevUser,
         user_metadata: {
@@ -81,6 +89,8 @@ const MyPage = () => {
         }
       }));
       setIsEditing(false);
+    } catch (error) {
+      console.error("프로필 및 게시글 업데이트 오류:", error);
     }
   };
 
