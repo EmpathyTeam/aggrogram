@@ -8,6 +8,7 @@ export const BoardContainer = styled.div`
   margin-top: 50px;
   border-radius:20px;
 
+  
   .postInfoArea {
     display: flex;
     flex-direction: column;
@@ -53,6 +54,7 @@ export const BoardContainer = styled.div`
     width: 500px;
     height: 200px;
     padding: 10px;
+    white-space:pre-wrap;
     
   }
 
