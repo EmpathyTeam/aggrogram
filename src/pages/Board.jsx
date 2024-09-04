@@ -1,32 +1,37 @@
 import * as S from "../styles/BoardStyle.js";
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
 import RadiusOrangeButton from "../components/commons/RadiusOrangeButton.jsx";
+import Spinner from "../components/commons/Spinner.jsx";
 
 const Board = () => {
   const navigate = useNavigate();
   const { posts, setPosts, user } = useAggrogram();
+  const [loading, setLoading] = useState(true);
 
-  const searchParams = new URLSearchParams(location.search);
-  console.log(searchParams);
+  const searchParams = new URLSearchParams(window.location.search);
   const postId = Number(searchParams.get("id"));
-  console.log(postId);
-  const foundPost = posts.find((p) => p.id === postId);
+  const foundPost = posts ? posts.find((p) => p.id === postId) : null;
 
-  console.log(foundPost);
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    const fetchPosts = async () => {
+      const { data, error } = await supabase.from("posts").select();
+      if (error) {
+        console.error("Error fetching posts:", error);
+      } else {
+        setPosts(data);
+      }
+      setLoading(false);
+    };
+    fetchPosts();
+  }, [setPosts]);
 
-  //뒤로가기 버튼 클릭시
   const handleBack = () => {
     navigate(-1);
   };
 
-  //수정버튼클릭시
   const handleEdit = () => {
     if (foundPost.user_id === user.id) {
       navigate(`/update?id=${postId}`);
@@ -35,7 +40,6 @@ const Board = () => {
     }
   };
 
-  //삭제버튼클릭시
   const handelDelete = async (postId) => {
     const { data, error } = await supabase.from("posts").delete().eq("id", postId).select();
 
@@ -50,6 +54,10 @@ const Board = () => {
     }
   };
 
+  if (loading) {
+    return <S.SpinnerContainer><Spinner/></S.SpinnerContainer>;
+  }
+
   return (
     <S.BoardContainer>
       {!foundPost ? (
@@ -63,14 +71,14 @@ const Board = () => {
 
             <div className="postInfo">
               <div className="postUserInfo">
-                <img className="profileImg" src={foundPost.avatar_url} />
+                <img className="profileImg" src={foundPost.avatar_url} alt="Profile" />
                 <div>{foundPost.nickname}</div>
               </div>
               <div>{new Date(foundPost.created_at).toISOString().split("T")[0]}</div>
             </div>
 
             <div className="image">
-              <img src={foundPost.img_url} alt="" />
+              <img src={foundPost.img_url} alt="Post" />
             </div>
 
             <div className="context">{foundPost.context}</div>

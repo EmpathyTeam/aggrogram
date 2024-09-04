@@ -29,10 +29,10 @@ export const AggrogramProvider = ({ children }) => {
       .from("posts")
       .select("*")
       .order("created_at", { ascending: false })
-      .range(offset, offset + limit - 1); // Pagination logic
+      .range(offset, offset + limit - 1);
 
     if (error) {
-      console.error("Error fetching posts:", error);
+      console.error("게시물 불러오기 에러:", error);
     }
 
     return { data };

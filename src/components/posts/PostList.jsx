@@ -10,23 +10,18 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../configs/supabaseConfig";
 
 const PostList = ({ isMyPage }) => {
-  // Context
   const { getAllPosts, user, posts, setPosts, getSixPosts, loading } = useAggrogram();
 
-  // 상태
-  const [postLoadingMore, setPostLoadingMore] = useState(true); // 데이터 추가할지에 대한 상태
-  const [displayedPosts, setDisplayedPosts] = useState([]); // 렌더링할 데이터를 담아줄 배열
-  const [offset, setOffset] = useState(0); // 어디서부터 가져올지
-  const [isView, setIsView] = useState(true); // 상태에 따라서 뷰 방식 바뀜
+  const [postLoadingMore, setPostLoadingMore] = useState(true);
+  const [displayedPosts, setDisplayedPosts] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [isView, setIsView] = useState(true);
 
   const navigate = useNavigate();
   const limitLength = 6;
 
   const filteredPosts = isMyPage ? displayedPosts.filter((post) => post.user_id === user.id) : displayedPosts;
 
-  // 옵저버
-  // observerRef는 DOM 요소를 참조하기 위한 객체입니다.
-  // 화면에 보이는 요소를 감지하는 객체
   const handleObserver = (entries) => {
     if (entries[0].isIntersecting && !postLoadingMore) {
       setPostLoadingMore(true);
@@ -36,47 +31,29 @@ const PostList = ({ isMyPage }) => {
   const observerRef = useRef(null);
 
   const observer = new IntersectionObserver(handleObserver, {
-    threshold: 0.7 // threshold는 0 기준으로 보이기만 하면 바로 감지 1 로 갈수록 감지 영역이 적어짐
+    threshold: 0.7
   });
-
-  /*
-      IntersectionObserverEntry 객체 정리
-
-      boundingClientRect: 요소의 크기와 위치를 나타내는 DOMRect 객체
-      intersectionRect: 요소와 뷰포트가 교차하는 영역을 나타내는 DOMRect 객체
-      intersectionRatio: 요소가 뷰포트와 교차하는 비율입니다.
-      isIntersecting: 요소가 뷰포트와 교차하는지 (닿는지) 여부를 나타내는 불리언 값
-      rootBounds: 루트 요소의 DOMRect 객체
-      target: 관찰 중인 요소를 참조하는 Element
-    */
 
   useEffect(() => {
     const loadInitialPosts = async () => {
       getAllPosts();
 
-      // 현재 렌더링 할 데이터가 없으면 데이터 가져옴
       if (!displayedPosts) {
         const { data } = await getSixPosts(limitLength, offset);
         setDisplayedPosts(data);
         setOffset(offset + limitLength);
-      }
-      // 뷰 바꾸기 클릭시 데이터가 있고 오프셋이 0이 아니면
-      // 0번째부터 6개를 다시 가져옴
-      else if (displayedPosts && offset !== 0) {
+      } else if (displayedPosts && offset !== 0) {
         const { data } = await getSixPosts(limitLength, 0);
         setDisplayedPosts(data);
         setOffset(0 + limitLength);
       }
     };
+
     loadInitialPosts();
   }, [isView]);
 
   useEffect(() => {
     if (postLoadingMore) {
-      // 로딩중인 상태가 true 라면
-      // 새로운 데이터를 다시 가져오고
-      // spread로 이전 게시글 유지한 상태로 넣어줌
-
       const loadMorePosts = async () => {
         const { data } = await getSixPosts(limitLength, offset);
         setDisplayedPosts((prevPosts) => [...prevPosts, ...data]);
@@ -87,17 +64,10 @@ const PostList = ({ isMyPage }) => {
       loadMorePosts();
     }
 
-    // observerRef.current =>  참조하는 DOM 요소를나타냄
-
     if (observerRef.current) {
       observer.observe(observerRef.current);
     }
 
-    // return
-    // 컴포넌트가 DOM에서 제거될 때 => 컴포넌트가 언마운트 될 때
-    // 언마운트: 컴포넌트가 더 이상 화면에 렌더링되지 않고, React의 DOM에서 사라지는 것
-    // useEffect의 의존성 배열이 변경될 때 => 변경됨과 동시에 바로 실행돰
-    // return 문으로 해당 useEffect 종료
     return () => {
       if (observerRef.current) {
         observer.unobserve(observerRef.current);
@@ -105,7 +75,6 @@ const PostList = ({ isMyPage }) => {
     };
   }, [postLoadingMore]);
 
-  //수정버튼클릭시
   const handleEdit = (userId, postId) => {
     console.log(postId);
     console.log(userId);
@@ -116,7 +85,6 @@ const PostList = ({ isMyPage }) => {
     }
   };
 
-  //삭제버튼클릭시
   const handelDelete = async (userId, postId) => {
     const { data, error } = await supabase.from("posts").delete().eq("id", postId).select();
 
@@ -234,7 +202,7 @@ const ObserverArea = styled.div`
 
 const StyledPostList = styled.ul`
   display: flex;
-  flex-direction: row;
+  flex-direction: row;  
   justify-content: ${({ $isView }) => {
     if ($isView === false) {
       return "center";
@@ -253,7 +221,8 @@ const StyledPostList = styled.ul`
   }};
   gap: 30px;
 `;
-const moveToRight = keyframes`
+
+const moveBack = keyframes`
   0% {
     transform: translateX(0);
   }
@@ -262,7 +231,7 @@ const moveToRight = keyframes`
   }
 `;
 
-const moveBack = keyframes`
+const moveToRight = keyframes`
   0% {
     transform: translateX(100%);
   }

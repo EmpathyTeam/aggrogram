@@ -10,4 +10,5 @@ export const RoutesArea = styled.div`
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 50px;
+    min-height: 400px;
 `;
