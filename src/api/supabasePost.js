@@ -23,6 +23,8 @@ export const updatePost = async (post) => {
       context: post.content,
       img_url: post.imageUrl,
       avatar_url: post.avatar_url
+        ? post.avatar_url
+        : "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
     })
     .eq("id", post.id)
     .select();
