@@ -9,6 +9,8 @@ export const uploadPost = async (post) => {
     img_url: post.imageUrl,
     context: post.content,
     avatar_url: post.avatar_url
+      ? post.avatar_url
+      : "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
   });
 };
 

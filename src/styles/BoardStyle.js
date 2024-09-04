@@ -73,6 +73,16 @@ export const BoardContainer = styled.div`
       height: 100%;
       object-fit: cover;
     }
+
+    .noImageWrap {
+      height: 100%;
+      background-color: lightgray;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+    }
   }
 
   .context {
@@ -94,4 +104,4 @@ export const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0;
-`
+`;
