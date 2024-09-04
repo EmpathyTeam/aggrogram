@@ -178,12 +178,18 @@ const Header = () => {
             >
               마이 페이지
             </button> */}
-            <BoardButton onClick={signOut}>로그아웃</BoardButton>
+            <BoardButton  onClick={signOut}>
+              LogOut
+            </BoardButton>
           </div>
         ) : (
           <div className="logoutArea">
-            <BoardButton onClick={() => navigate("/signin")}>로그인</BoardButton>
-            <BoardButton onClick={() => navigate("/signup")}>회원가입</BoardButton>
+            <BoardButton onClick={() => navigate("/signin")}>
+              Login
+            </BoardButton>
+            <BoardButton onClick={() => navigate("/signup")}>
+              Sign Up
+            </BoardButton>
           </div>
         )}
       </S.NavLinks>

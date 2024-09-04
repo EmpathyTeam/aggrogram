@@ -1,10 +1,5 @@
 import { supabase } from "../configs/supabaseConfig";
 
-/** post 전체 조회 */
-export const getPosts = async () => {
-  return await supabase.from("posts").select()  ;
-};
-
 /** post 등록 */
 export const uploadPost = async (post) => {
   return await supabase.from("posts").insert({

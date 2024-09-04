@@ -34,7 +34,7 @@ const Sidebar = () => {
   return (
     <S.SidebarContainer>
       <RoundButton onClick={handleCreatePostClick} type="write">
-        글 작성
+        Write
       </RoundButton>
       <RoundButton onClick={scrollToTop} type="top">
         TOP
