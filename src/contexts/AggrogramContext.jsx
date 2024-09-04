@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getPosts } from "../api/supabasePost.js";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +19,23 @@ export const AggrogramProvider = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const getAsyncPosts = async () => {
-    const { data } = await getPosts();
-    if (data) {
-      const sortedPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      setPosts(sortedPosts);
+  const getAllPosts = async () => {
+    const { data } = await supabase.from("posts").select().order("created_at", { ascending: false });
+    setPosts(data);
+  };
+
+  const getSixPosts = async (limit, offset) => {
+    const { data, error } = await supabase
+      .from("posts")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1); // Pagination logic
+
+    if (error) {
+      console.error("Error fetching posts:", error);
     }
+
+    return { data };
   };
 
   const signOut = async () => {
@@ -46,7 +56,7 @@ export const AggrogramProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getAsyncPosts();
+    getSixPosts();
     getSession();
 
     // 유저의 권한 변경 여부 파악
@@ -61,7 +71,7 @@ export const AggrogramProvider = ({ children }) => {
   }, []);
 
   return (
-    <AggrogramContext.Provider value={{ posts, getAsyncPosts, setPosts, user, setUser, signOut }}>
+    <AggrogramContext.Provider value={{ posts, getAllPosts, getSixPosts, setPosts, user, setUser, signOut }}>
       {children}
     </AggrogramContext.Provider>
   );

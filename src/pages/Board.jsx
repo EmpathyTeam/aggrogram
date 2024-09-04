@@ -4,16 +4,19 @@ import React, { useEffect } from "react";
 import { supabase } from "../configs/supabaseConfig.js";
 import { useAggrogram } from "../contexts/AggrogramContext.jsx";
 import { useNavigate } from "react-router-dom";
-import BoardButton from "../components/commons/RadiusOrangeButton.jsx";
+import RadiusOrangeButton from "../components/commons/RadiusOrangeButton.jsx";
 
 const Board = () => {
   const navigate = useNavigate();
   const { posts, setPosts, user } = useAggrogram();
 
   const searchParams = new URLSearchParams(location.search);
+  console.log(searchParams);
   const postId = Number(searchParams.get("id"));
+  console.log(postId);
   const foundPost = posts.find((p) => p.id === postId);
 
+  console.log(foundPost);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -75,11 +78,11 @@ const Board = () => {
 
           <div>
             <div>
-              <BoardButton onClick={handleBack}>뒤로가기</BoardButton>
+              <RadiusOrangeButton onClick={handleBack}>뒤로가기</RadiusOrangeButton>
               {user && foundPost.user_id === user.id ? (
                 <>
-                  <BoardButton onClick={handleEdit}> 수정하기</BoardButton>
-                  <BoardButton onClick={() => handelDelete(postId)}>삭제하기</BoardButton>
+                  <RadiusOrangeButton onClick={handleEdit}> 수정하기</RadiusOrangeButton>
+                  <RadiusOrangeButton onClick={() => handelDelete(postId)}>삭제하기</RadiusOrangeButton>
                 </>
               ) : null}
             </div>
