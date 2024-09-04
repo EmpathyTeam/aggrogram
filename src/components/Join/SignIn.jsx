@@ -8,8 +8,6 @@ import { AggrogramContext } from "../../contexts/AggrogramContext";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const { user, signOut } = useContext(AggrogramContext);
 
   // 이메일 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -61,7 +59,6 @@ const SignIn = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
-              // passwordCheck(e.target.value);
             }}
           />
           <button className="signinBtn" type="submit" disabled={!(setIsEmail && setIsPassword)}>
