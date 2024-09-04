@@ -55,7 +55,11 @@ const Board = () => {
   };
 
   if (loading) {
-    return <S.SpinnerContainer><Spinner/></S.SpinnerContainer>;
+    return (
+      <S.SpinnerContainer>
+        <Spinner />
+      </S.SpinnerContainer>
+    );
   }
 
   return (
@@ -78,7 +82,11 @@ const Board = () => {
             </div>
 
             <div className="image">
-              <img src={foundPost.img_url} alt="Post" />
+              {foundPost.img_url ? (
+                <img src={foundPost.img_url} alt="Post" />
+              ) : (
+                <div className="noImageWrap">이미지가 없습니다.</div>
+              )}
             </div>
 
             <div className="context">{foundPost.context}</div>
