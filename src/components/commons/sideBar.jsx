@@ -28,7 +28,7 @@ const Sidebar = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth" // 부드러운 스크롤 효과
+      behavior: "smooth"
     });
   };
   return (

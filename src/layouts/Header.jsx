@@ -167,29 +167,23 @@ const Header = () => {
           <div className="loginArea">
             <Link to={`/mypage?id=${user.id}`} className="welcomeMessage">
               <div>
-                <img src={user.user_metadata.avatar_url} alt="" />
+                <img
+                  src={
+                    user.user_metadata.avatar_url
+                      ? user.user_metadata.avatar_url
+                      : "https://untacqjpmvnegdbefbrr.supabase.co/storage/v1/object/public/avatarImg/m_20220509173224_d9N4ZGtBVR.jpeg"
+                  }
+                  alt=""
+                />
               </div>
               <span>{user.user_metadata.nickname} 님</span>
             </Link>
-            {/* <button
-              onClick={() => {
-                navigate(`/mypage?id=${user.id}`);
-              }}
-            >
-              마이 페이지
-            </button> */}
-            <BoardButton  onClick={signOut}>
-              LogOut
-            </BoardButton>
+            <BoardButton onClick={signOut}>LogOut</BoardButton>
           </div>
         ) : (
           <div className="logoutArea">
-            <BoardButton onClick={() => navigate("/signin")}>
-              Login
-            </BoardButton>
-            <BoardButton onClick={() => navigate("/signup")}>
-              Sign Up
-            </BoardButton>
+            <BoardButton onClick={() => navigate("/signin")}>Login</BoardButton>
+            <BoardButton onClick={() => navigate("/signup")}>Sign Up</BoardButton>
           </div>
         )}
       </S.NavLinks>

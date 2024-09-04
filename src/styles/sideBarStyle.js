@@ -8,5 +8,4 @@ export const SidebarContainer = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 15px;
-  /* z-index: 1000; */
 `;

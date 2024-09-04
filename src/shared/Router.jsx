@@ -45,7 +45,6 @@ const Router = () => {
             <Route path="/" element={<LayOut />}>
               <Route index element={<Main />} />
               <Route path="/board" element={<Board />} />
-              {/* <Route path="/mypage" element={<MyPage />} /> */}
 
               <Route element={<AuthRoute />}>
                 <Route path="/signup" element={<SignUp />} />
