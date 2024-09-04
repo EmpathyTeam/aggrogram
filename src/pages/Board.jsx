@@ -85,7 +85,14 @@ const Board = () => {
               {foundPost.img_url ? (
                 <img src={foundPost.img_url} alt="Post" />
               ) : (
-                <div className="noImageWrap">이미지가 없습니다.</div>
+                <div className="noImageWrap">
+                  <div className="noImageEN">
+                    <p>NO IMAGE</p>
+                  </div>
+                  <div className="noImageKR">
+                    <p>이미지가 없습니다.</p>
+                  </div>
+                </div>
               )}
             </div>
 

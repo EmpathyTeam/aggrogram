@@ -143,9 +143,19 @@ const PostList = ({ isMyPage }) => {
                       </div>
 
                       <div className="image">
-                        <img src={post.img_url} alt="" />
+                        {post.img_url ? (
+                          <img src={post.img_url} alt="Post" />
+                        ) : (
+                          <div className="noImageWrap">
+                            <div className="noImageEN">
+                              <p>NO IMAGE</p>
+                            </div>
+                            <div className="noImageKR">
+                              <p>이미지가 없습니다.</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-
                       <div className="context">{post.context}</div>
                     </div>
 
@@ -202,7 +212,7 @@ const ObserverArea = styled.div`
 
 const StyledPostList = styled.ul`
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   justify-content: ${({ $isView }) => {
     if ($isView === false) {
       return "center";

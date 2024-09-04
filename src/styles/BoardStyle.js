@@ -75,8 +75,10 @@ export const BoardContainer = styled.div`
     }
 
     .noImageWrap {
+      color: #888888;
+      font-weight: bold;
       height: 100%;
-      background-color: lightgray;
+      background-image: linear-gradient(145deg, rgba(245, 245, 245, 0.9), #ffd9b9);
       display: flex;
       flex-direction: column;
       justify-content: center;
